@@ -42,7 +42,7 @@ const Greeting = () => {
 
     return (
         <div style={{ display: "flex", flexWrap: 'wrap', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h1>{greeting}</h1>
+            <h1 onClick={() => window.location.reload()}>{greeting}</h1>
 
             <div style={{
                 display: 'flex',
