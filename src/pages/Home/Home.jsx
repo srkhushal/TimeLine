@@ -168,7 +168,7 @@ const AddNewEvent = () => {
                             >
                                 <Switch isChecked={isChecked} />
                             </div>
-                            <span style={{ fontSize: '14px', opacity: 0.75, cursor: "default", userSelect: "none", marginTop: '1.5px' }} className="input-label">Auto Delete After Completion</span>
+                            <span style={{ fontSize: '14px', opacity: 0.75, userSelect: "none", marginTop: '1.5px' }} className="input-label">Auto Delete After Completion</span>
                         </div>
 
 
