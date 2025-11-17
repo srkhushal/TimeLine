@@ -1,6 +1,6 @@
 
 
-# 🗓️ **DateTime — A Lightweight Event Tracker**
+# 🗓️ **TimeLine — A Lightweight Event Tracker**
 
 A lightweight **React app** for creating, organizing, and tracking personal events.
 It includes **search**, **sorting**, **real-time countdowns**, **auto-deletion after expiration**, clean minimal UI, and a responsive layout that works on desktop and mobile.
@@ -49,8 +49,8 @@ It includes **search**, **sorting**, **real-time countdowns**, **auto-deletion a
 ### **1. Clone the repository**
 
 ```sh
-git clone https://github.com/yourname/datetime.git
-cd datetime
+git clone https://github.com/yourname/timeline.git
+cd timeline
 ```
 
 ### **2. Install dependencies**
