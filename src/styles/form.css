@@ -54,13 +54,18 @@ form.addNewEvent {
 
 .input-wrapper {
     width: 100%;
-    min-height: 40px;
     display: flex;
     align-items: stretch;
     justify-content: stretch;
     border: 1.5px solid rgb(128 128 128 /0.25);
     border-radius: 14px;
     transition: all 50ms;
+}
+
+.input-wrapper:has(input) {
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
 }
 
 .input-label {
@@ -84,9 +89,11 @@ form.addNewEvent {
     }
 }
 
+
+
 input.event-input {
     flex: 1;
-    padding: 0.5rem;
+    padding: 0.5rem 0.75rem;
     border: none;
     outline: none;
     background: none;
@@ -107,12 +114,15 @@ textarea.event-input {
     resize: vertical;
     flex: 1;
     font-size: 1rem;
-    padding: 0.5rem 0.5rem;
+    padding: 0.65rem 0.75rem;
     border: none;
     outline: none;
     background: none;
-    min-height: 150px;
-    max-height: 500px;
+    height: 150px !important;
+    min-height: 150px !important;
+    max-height: 500px !important;
+    font-family: var(--font);
+
 }
 
 .add-event-wrapper {
@@ -130,6 +140,7 @@ input.add-event {
     color: var(--bg);
     font-weight: 600;
     cursor: pointer;
+    min-height: 50px;
 }
 
 .cta {

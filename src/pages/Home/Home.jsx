@@ -346,7 +346,7 @@ const EventList = () => {
     return (
         <div className="events-wrapper">
             <div className="events-options">
-                <div>
+                <div >
                     <input
                         onChange={handleSearchInput}
                         type="text"
@@ -503,8 +503,8 @@ const ZeroEvents = ({ type = 'nodata' }) => {
 
 const commonStyle = {
     all: "unset",
-    minWidth: "36px",
-    minHeight: "36px",
+    minWidth: "38px",
+    minHeight: "38px",
     userSelect: "none",
     border: "1.5px solid rgb(128 128 128 /0.25)",
     background:
