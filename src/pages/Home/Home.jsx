@@ -387,18 +387,17 @@ const EventList = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
                 <span style={{ marginTop: '16px', fontSize: '11px', opacity: 0.75, marginLeft: '6px', fontFamily: "monospace" }}>{filteredEvents.upcoming.length} Upcoming Event{filteredEvents.upcoming.length > 1 ? "s" : ""}, {filteredEvents.completed.length} Completed</span>
                 {
-                    !filteredEvents.total.length ? '' :
-                        <span onClick={() => {
-                            setHideCompleted(p => !p);
-                            setUser((p) => ({
-                                ...p, settings: {
-                                    ...(p?.settings || {}),
-                                    hideCompleted: !p?.settings?.hideCompleted
-                                }
-                            }))
-                        }} style={{ marginTop: '16px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
-                            [{hideCompleted ? "Unhide" : "Hide"} Completed]
-                        </span>
+                    <span onClick={() => {
+                        setHideCompleted(p => !p);
+                        setUser((p) => ({
+                            ...p, settings: {
+                                ...(p?.settings || {}),
+                                hideCompleted: !p?.settings?.hideCompleted
+                            }
+                        }))
+                    }} style={{ userSelect: "none", marginTop: '16px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
+                        [{hideCompleted ? "Unhide" : "Hide"} Completed]
+                    </span>
                 }
             </div>
             <div className="events-container">
