@@ -431,22 +431,19 @@ const EventList = () => {
                             return (
                                 <div
                                     onMouseEnter={() => {
-                                        if (device?.type?.isMobile) return;
                                         setShowDelete({
                                             id: id,
                                             state: true
                                         })
                                     }}
                                     onMouseLeave={() => {
-                                        if (device?.type?.isMobile) return;
                                         setShowDelete({
                                             id: null,
                                             state: false
                                         })
                                     }}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        e.preventDefault();
+                                    onClick={() => {
+                                        if (device?.type?.isMobile) return;
                                         setSelectedEvent(item);
                                     }}
                                     key={id}
@@ -478,10 +475,17 @@ const EventList = () => {
                                     {
                                         ((showDelete.id === id) && showDelete.state) ? <button
                                             className={device?.type?.isMobile ? "delete-event-btn" : "delete-event-icon"}
-                                            onClick={() => handleDelete(id)}
+                                            onClick={() => {
+                                                if (device?.type?.isMobile) {
+                                                    setSelectedEvent(item);
+                                                    setShowDelete({ id: null, state: false })
+                                                    return;
+                                                };
+                                                handleDelete(id);
+                                            }}
                                         >
                                             {
-                                                device?.type?.isMobile ? "Delete" :
+                                                device?.type?.isMobile ? "Open" :
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                                             }
                                         </button> : ''

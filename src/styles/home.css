@@ -218,12 +218,6 @@ span.completed {
     font-family: var(--font);
     background: var(--text);
     color: var(--bg);
-
-
-    &:hover {
-        background: light-dark(rgba(255, 30, 30, 0.185), rgba(255, 30, 30, 0.231));
-        color: rgb(255, 30, 30);
-    }
 }
 
 .delete-event-icon {
@@ -353,6 +347,7 @@ body:has(div.event-modal) {
         cursor: pointer;
         background: light-dark(rgb(255, 255, 255), var(--subtle));
         color: var(--text);
+        transition: all 75ms;
 
         &:hover {
             background: light-dark(rgba(255, 30, 30, 0.185), rgba(255, 30, 30, 0.231));
@@ -365,6 +360,11 @@ body:has(div.event-modal) {
         background: var(--text);
         color: var(--bg);
         cursor: pointer;
+        transition: all 75ms;
+
+        &:hover {
+            opacity: 0.75;
+        }
     }
 }
 
