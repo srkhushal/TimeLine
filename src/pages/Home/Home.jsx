@@ -56,7 +56,7 @@ const Greeting = () => {
                 }}>
                     {time.toDateString()}
                 </span>
-                <span>
+                <span style={{ userSelect: 'none' }}>
                     {"•"}
                 </span>
                 <span style={{
