@@ -31,7 +31,7 @@ form.addNewEvent {
     border: 1px solid rgb(128 128 128 /0.25);
     width: min(400px, 92dvw);
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: 14px;
     position: fixed;
     bottom: 6rem;
     z-index: 2;
@@ -59,7 +59,7 @@ form.addNewEvent {
     align-items: stretch;
     justify-content: stretch;
     border: 1.5px solid rgb(128 128 128 /0.25);
-    border-radius: 4px;
+    border-radius: 14px;
     transition: all 50ms;
 }
 
@@ -119,7 +119,6 @@ textarea.event-input {
     border: none !important;
     outline: none !important;
     background: var(--accent);
-    cursor: pointer;
     transition: all 50ms;
 
     &:hover {
@@ -145,89 +144,23 @@ input.add-event {
     color: var(--bg);
     border: none;
     border-radius: 50%;
-    cursor: pointer;
     z-index: 2;
+    cursor: pointer;
 
     svg {
         /* opacity: 0.75; */
     }
 }
 
-
-
-
-
-/*----------------- Switch-------------------------- */
-
-:root {
-    color-scheme: light dark;
-    --accent: light-dark(dodgerblue, rgb(32 205 32));
-    --switch-bg: light-dark(rgb(210 210 210), rgb(50 50 50));
-    --switch-i-bg: light-dark(white, white);
-    --size: 24px;
-}
-
-.switch-container {
-    display: inline-block;
-    cursor: pointer;
-}
-
-.switch {
-    width: 50px;
-    height: 25px;
-    background-color: #ccc;
-    border-radius: 25px;
-    position: relative;
-    transition: background-color 0.3s ease;
-}
-
-.switch.checked {
-    background-color: var(--accent);
-    /* Green for checked state */
-}
-
-.switch-handle {
+.checkbox-container {
     width: 20px;
     height: 20px;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    top: 2.5px;
-    left: 2px;
-    transition: left 0.3s ease;
+    border: 1px solid rgb(128 128 128 /0.5);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 75ms;
+    user-select: none;
 }
-
-.switch.checked .switch-handle {
-    left: 28px;
-}
-
-@keyframes btnMomentumOn {
-    0% {
-        transform: translate(-5%, 0);
-    }
-
-    33% {
-        transform: translate(5%, 0);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-@keyframes btnMomentumOff {
-    0% {
-        transform: translate(5%, 0);
-    }
-
-    33% {
-        transform: translate(-5%, 0);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-
-/* ------------------------------------ */

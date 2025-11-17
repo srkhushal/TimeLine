@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDevice, useUser } from "../../providers";
-import Switch from "../../components/Switch";
+
 import zs1 from "../../assets/images/zerostate1.avif";
 import zs2 from "../../assets/images/zerostate2.avif";
 import zs3 from "../../assets/images/zerostate3.avif";
@@ -8,6 +8,7 @@ import zs4 from "../../assets/images/zerostate4.avif";
 import zs5 from "../../assets/images/zerostate5.avif";
 import zs6 from "../../assets/images/zerostate6.avif";
 import arrow from "../../assets/images/arrow.svg";
+import Switch from "../../components/Switch.jsx";
 
 export function Home() {
     return (
@@ -40,19 +41,23 @@ const Greeting = () => {
     const pad = (num) => String(num).padStart(2, "0");
 
     return (
-        <div>
+        <div style={{ display: "flex", flexWrap: 'wrap', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
             <h1>{greeting}</h1>
 
             <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                width: '100%',
-                justifyContent: 'space-between'
+                alignItems: "center",
+                justifyContent: 'space-between',
+                gap: '7px'
             }}>
                 <span style={{
                     fontSize: "14px", opacity: 0.75
                 }}>
                     {time.toDateString()}
+                </span>
+                <span>
+                    {"•"}
                 </span>
                 <span style={{
                     fontSize: "14px", opacity: 0.75
@@ -112,7 +117,7 @@ const AddNewEvent = () => {
             label: "",
             note: "",
         });
-        setIsChecked(false);
+        setIsChecked(true);
         setShowAddEvent(false);
     }
     return (
@@ -156,11 +161,14 @@ const AddNewEvent = () => {
                             </div>
                         </label>
 
-                        <div onClick={() => {
-                            setIsChecked(p => !p)
-                        }} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBlock: '0.125rem 0.5rem' }}>
-                            <span style={{ fontSize: '14px', opacity: 0.75 }} className="input-label">Auto Delete After Completion</span>
-                            <Switch isChecked={isChecked} setIsChecked={setIsChecked} />
+                        <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '12px', marginBlock: '0.125rem 0.5rem' }}>
+                            <div style={{ transition: 'none', background: 'none' }}
+                                onClick={() => {
+                                    setIsChecked(p => !p)
+                                }}>
+                                <Switch isChecked={isChecked} />
+                            </div>
+                            <span style={{ fontSize: '14px', opacity: 0.75, cursor: "default", userSelect: "none" }} className="input-label">Auto Delete After Completion</span>
                         </div>
 
 
@@ -395,7 +403,7 @@ const EventList = () => {
                                 hideCompleted: !p?.settings?.hideCompleted
                             }
                         }))
-                    }} style={{ userSelect: "none", marginTop: '16px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
+                    }} style={{ userSelect: "none", marginTop: '16px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace" }}>
                         [{hideCompleted ? "Unhide" : "Hide"} Completed]
                     </span>
                 }
@@ -435,7 +443,6 @@ const EventList = () => {
                                 {!item.autoDelete ? "" : <div className="event-date">#autoDelete</div>}
                                 {
                                     ((showDelete.id === item.id) && showDelete.state) ? <button
-                                        style={{ cursor: "pointer" }}
                                         className={device?.type?.isMobile ? "delete-event-btn" : "delete-event-icon"}
                                         onClick={() => handleDelete(item.id)}
                                     >
@@ -508,7 +515,6 @@ const commonStyle = {
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "14px",
-    cursor: "pointer",
 };
 
 const SortIcon = ({ dir = "asc", onClick, mode = "label" }) => {

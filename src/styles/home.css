@@ -92,7 +92,7 @@
     border-color: light-dark(#ddd, #333);
     /* border-color: light-dark(rgba(30, 143, 255, 0.85), rgba(30, 143, 255, 0.31)); */
 
-    border-radius: 8px;
+    border-radius: 14px;
     max-width: fit-content;
     justify-content: space-between;
     position: relative;
@@ -172,7 +172,7 @@ span.completed {
     font-family: var(--font);
     background: var(--text);
     color: var(--bg);
-    cursor: pointer !important;
+
 
     &:hover {
         background: light-dark(rgba(255, 30, 30, 0.185), rgba(255, 30, 30, 0.231));
@@ -212,10 +212,19 @@ span.completed {
     margin-inline: auto;
 }
 
+.zero-events-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .zero-state-image {
     margin-top: 2rem;
-    width: 100%;
+    margin-inline: auto;
     height: 300px;
+    max-width: 300px;
     object-fit: contain;
     filter: invert(0);
 }
