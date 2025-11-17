@@ -403,7 +403,7 @@ const EventList = () => {
                                 hideCompleted: !p?.settings?.hideCompleted
                             }
                         }))
-                    }} style={{ userSelect: "none", marginTop: '16px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace" }}>
+                    }} style={{ userSelect: "none", marginTop: '16px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
                         [{hideCompleted ? "Unhide" : "Hide"} Completed]
                     </span>
                 }
