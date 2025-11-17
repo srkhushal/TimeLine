@@ -214,6 +214,7 @@ span.completed {
 
 .zero-events-image-container {
     width: 100%;
+    pointer-events: none;
     display: flex;
     justify-content: center;
     align-items: center;
