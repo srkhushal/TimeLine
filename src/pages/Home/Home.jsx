@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDevice, useUser } from "../../providers";
 
 import zs1 from "../../assets/images/zerostate1.avif";
@@ -49,7 +49,8 @@ const Greeting = () => {
                 flexWrap: 'wrap',
                 alignItems: "center",
                 justifyContent: 'space-between',
-                gap: '7px'
+                gap: '7px',
+                marginLeft: '3px'
             }}>
                 <span style={{
                     fontSize: "14px", opacity: 0.75
@@ -188,7 +189,9 @@ const AddNewEvent = () => {
 
 
 
-
+const minimalText = (str, strLength = 30) => {
+    return `${str}`.length > strLength ? `${str}`.substring(0, strLength - 3) + '...' : str;
+}
 const EventList = () => {
     const { user, setUser } = useUser();
     const { device } = useDevice();
@@ -332,6 +335,7 @@ const EventList = () => {
 
 
     const [showDelete, setShowDelete] = useState({ id: null, state: false });
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     if (!events?.length && input.length) {
         return <ZeroEvents type="noresult" />
@@ -392,70 +396,185 @@ const EventList = () => {
                     )}
                 </div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
-                <span style={{ marginTop: '16px', fontSize: '11px', opacity: 0.75, marginLeft: '6px', fontFamily: "monospace" }}>{filteredEvents.upcoming.length} Upcoming Event{filteredEvents.upcoming.length > 1 ? "s" : ""}, {filteredEvents.completed.length} Completed</span>
+            <div className="events-list-meta" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
+                <span style={{ marginTop: '4px', fontSize: '11px', opacity: 0.75, marginLeft: '6px', fontFamily: "monospace" }}>{filteredEvents.upcoming.length} Upcoming Event{filteredEvents.upcoming.length > 1 ? "s" : ""}, {filteredEvents.completed.length} Completed</span>
                 {
-                    <span onClick={() => {
-                        setHideCompleted(p => !p);
-                        setUser((p) => ({
-                            ...p, settings: {
-                                ...(p?.settings || {}),
-                                hideCompleted: !p?.settings?.hideCompleted
-                            }
-                        }))
-                    }} style={{ userSelect: "none", marginTop: '16px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
-                        [{hideCompleted ? "Unhide" : "Hide"} Completed]
-                    </span>
+                    !filteredEvents.completed.length ? '' :
+                        <span onClick={() => {
+                            setHideCompleted(p => !p);
+                            setUser((p) => ({
+                                ...p, settings: {
+                                    ...(p?.settings || {}),
+                                    hideCompleted: !p?.settings?.hideCompleted
+                                }
+                            }))
+                        }} style={{ userSelect: "none", marginTop: '4px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
+                            [{hideCompleted ? "Unhide" : "Hide"} Completed]
+                        </span>
                 }
             </div>
             <div className="events-container">
                 {
                     !filteredEvents.total.length ? <ZeroEvents type="noresult" /> :
-                        filteredEvents.total.map((item) => (
-                            <div
-                                onMouseEnter={() => {
-                                    setShowDelete({
-                                        id: item.id,
-                                        state: true
-                                    })
-                                }}
-                                onMouseLeave={() => {
-                                    setShowDelete({
-                                        id: null,
-                                        state: false
-                                    })
-                                }}
-                                key={item.id}
-                                className={item?.remainingTime ? "event-card" : "event-card-coloredBorder"}
-                                style={{
-                                    ...(viewMode === "list" ? { minWidth: "100%" } : {}),
-                                    ...(device?.type?.isMobile ? { minWidth: "100%" } : {}),
-                                }}
-                            >
-                                <div>
-                                    <div className="event-label">
-                                        <h3>{item.label}</h3>
-                                        <span className={item?.remainingTime ? "upcoming" : "completed"} >{item.remainingTime ?? "Completed"}</span>
-                                    </div>
-                                    {!item?.note ? '' : <div className="event-note">{item.note}</div>}
-                                    <div className="event-date" style={{ opacity: 1 }}>{formatDate(item.endsOn)}</div>
-                                </div>
-                                {!item.autoDelete ? "" : <div className="event-date">#autoDelete</div>}
-                                {
-                                    ((showDelete.id === item.id) && showDelete.state) ? <button
-                                        className={device?.type?.isMobile ? "delete-event-btn" : "delete-event-icon"}
-                                        onClick={() => handleDelete(item.id)}
-                                    >
-                                        {
-                                            device?.type?.isMobile ? "Delete" :
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                                        }
-                                    </button> : ''
-                                }
-                            </div>
-                        ))}
-            </div>
+                        filteredEvents.total.map((item, i) => {
 
+                            const id = item?.id || i;
+                            const label = item?.label || '';
+                            const note = item?.note || '';
+                            const endsOn = item?.endsOn || 'Invalid Date';
+                            const autoDelete = item?.autoDelete;
+                            const tag = item?.tag || '';
+                            const status = item?.status || '';
+                            const remainingTime = item?.remainingTime;
+
+
+                            return (
+                                <div
+                                    onMouseEnter={() => {
+                                        if (device?.type?.isMobile) return;
+                                        setShowDelete({
+                                            id: id,
+                                            state: true
+                                        })
+                                    }}
+                                    onMouseLeave={() => {
+                                        if (device?.type?.isMobile) return;
+                                        setShowDelete({
+                                            id: null,
+                                            state: false
+                                        })
+                                    }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        setSelectedEvent(item);
+                                    }}
+                                    key={id}
+                                    className={remainingTime ? "event-card" : "event-card-coloredBorder"}
+                                    style={{
+                                        ...(viewMode === "list" ? { minWidth: "100%" } : {}),
+                                        ...(device?.type?.isMobile ? { minWidth: "100%" } : {}),
+                                    }}
+                                >
+                                    <div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <div className="event-date" style={{ opacity: 1 }}>{formatDate(endsOn)}</div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
+                                                {!autoDelete ? "" :
+                                                    <div title="Auto Delete" className="event-tag">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M12 2a10 10 0 0 1 7.38 16.75" /><path d="M12 6v6l4 2" /><path d="M2.5 8.875a10 10 0 0 0-.5 3" /><path d="M2.83 16a10 10 0 0 0 2.43 3.4" /><path d="M4.636 5.235a10 10 0 0 1 .891-.857" /><path d="M8.644 21.42a10 10 0 0 0 7.631-.38" /></svg>
+                                                        {/* <span>Auto Delete</span> */}
+                                                    </div>}
+                                                <span className={remainingTime ? "upcoming" : "completed"} >{remainingTime ?? "Completed"}</span>
+
+                                            </div>
+
+                                        </div>
+                                        <div title={label} className="event-label">
+                                            <h3>{minimalText(label)}</h3>
+                                        </div>
+                                        {!note ? '' : <div title={note} className="event-note">{minimalText(note)}</div>}
+                                    </div>
+                                    {
+                                        ((showDelete.id === id) && showDelete.state) ? <button
+                                            className={device?.type?.isMobile ? "delete-event-btn" : "delete-event-icon"}
+                                            onClick={() => handleDelete(id)}
+                                        >
+                                            {
+                                                device?.type?.isMobile ? "Delete" :
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                            }
+                                        </button> : ''
+                                    }
+                                </div>
+                            )
+                        })}
+            </div>
+            <EventModal handleDelete={handleDelete} setItem={setSelectedEvent} item={selectedEvent} />
+        </div>
+    );
+};
+
+const EventModal = ({ item, setItem, handleDelete }) => {
+    const emRef = useRef(null);
+
+
+    const id = item?.id;
+    const label = item?.label || '';
+    const note = item?.note || '';
+    const endsOn = item?.endsOn || 'Invalid Date';
+    const autoDelete = item?.autoDelete;
+    const tag = item?.tag || '';
+    const status = item?.status || '';
+    const remainingTime = item?.remainingTime;
+
+
+    const formattedDate = new Date(endsOn).toLocaleString([], {
+        dateStyle: "medium",
+        timeStyle: "short"
+    });
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (emRef.current && !emRef.current.contains(event.target)) {
+                setItem(null);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [setItem]);
+    if (!item) return null;
+
+    return (
+        <div className="event-modal-backdrop">
+            <div ref={emRef} className="event-modal">
+                <div className="modal-header">
+                    <h3>{label}</h3>
+                </div>
+
+                <div className="modal-meta">
+                    <span className={status === "completed" ? "completed" : "upcoming"}>
+                        {status === "completed" ? "Completed" : "Upcoming"}
+                    </span>
+
+                    {autoDelete && (
+                        <span className="auto-delete-badge">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M12 2a10 10 0 0 1 7.38 16.75" /><path d="M12 6v6l4 2" /><path d="M2.5 8.875a10 10 0 0 0-.5 3" /><path d="M2.83 16a10 10 0 0 0 2.43 3.4" /><path d="M4.636 5.235a10 10 0 0 1 .891-.857" /><path d="M8.644 21.42a10 10 0 0 0 7.631-.38" /></svg>
+                            Auto Delete
+                        </span>
+                    )}
+                </div>
+
+                <div className="modal-body">
+
+                    <div className="modal-section">
+                        <h4>Ends On</h4>
+                        <p>{formattedDate}</p>
+                    </div>
+
+                    <div className="modal-section">
+                        <h4>Remaining</h4>
+                        <p>{remainingTime || "Expired"}</p>
+                    </div>
+
+                    {note && (
+                        <div className="modal-section">
+                            <h4>Note</h4>
+                            <p style={{ whiteSpace: "pre-wrap" }}>{note}</p>
+                        </div>
+                    )}
+                    <div className="modal-footer">
+                        <button onClick={() => handleDelete(id)} className="modal-delete">Delete</button>
+                        <button onClick={() => setItem(null)} className="modal-close">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
@@ -503,8 +622,8 @@ const ZeroEvents = ({ type = 'nodata' }) => {
 
 const commonStyle = {
     all: "unset",
-    minWidth: "38px",
-    minHeight: "38px",
+    minWidth: "41px",
+    minHeight: "41px",
     userSelect: "none",
     border: "1.5px solid rgb(128 128 128 /0.25)",
     background:
@@ -515,6 +634,8 @@ const commonStyle = {
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "14px",
+    cursor: "pointer",
+    boxShadow: "box-shadow: 1px 1px 5px rgb(128 128 128 /0.125)"
 };
 
 const SortIcon = ({ dir = "asc", onClick, mode = "label" }) => {

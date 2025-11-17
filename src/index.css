@@ -45,8 +45,8 @@ body {
   color: var(--text);
   line-height: 1.6;
   max-width: calc(100dvw);
-  overflow: scroll;
   display: flex;
+  min-height: 100dvh;
   justify-content: space-between;
   align-items: start;
   flex-direction: column;

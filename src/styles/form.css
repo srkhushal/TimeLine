@@ -17,7 +17,7 @@
             background: light-dark(rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0.75));
             position: absolute;
             backdrop-filter: blur(2px);
-            z-index: 1;
+            z-index: 10;
         }
     }
 }
@@ -34,7 +34,7 @@ form.addNewEvent {
     border-radius: 14px;
     position: fixed;
     bottom: 6rem;
-    z-index: 2;
+    z-index: 11;
     right: var(--offset);
     /* transform: translate(0, -50%); */
 }
@@ -66,13 +66,19 @@ form.addNewEvent {
     height: 44px !important;
     min-height: 44px !important;
     max-height: 44px !important;
+
+    input,
+    textarea {
+        border-radius: 14px;
+    }
 }
 
 .input-label {
-    font-weight: 600;
+    font-weight: 400;
     font-size: 14px;
     padding-inline-start: 2px;
-    opacity: 0.8;
+    opacity: 0.9;
+
 
     &[aria-required="true"] {
         position: relative;
@@ -136,11 +142,19 @@ textarea.event-input {
     }
 }
 
+div:has(input.add-event) {
+    margin-bottom: 0.5rem;
+}
+
 input.add-event {
     color: var(--bg);
     font-weight: 600;
     cursor: pointer;
     min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--text);
 }
 
 .cta {
@@ -155,7 +169,7 @@ input.add-event {
     color: var(--bg);
     border: none;
     border-radius: 50%;
-    z-index: 2;
+    z-index: 11;
     cursor: pointer;
 
     svg {
