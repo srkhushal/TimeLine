@@ -1,0 +1,233 @@
+@media (max-width:40em) {
+    form.addNewEvent {
+        top: 50% !important;
+        bottom: unset !important;
+        right: unset !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    body:has(form.addNewEvent) {
+        overflow: hidden !important;
+        position: relative;
+
+        &::before {
+            inset: 0;
+            content: '';
+            background: light-dark(rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0.75));
+            position: absolute;
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+    }
+}
+
+form.addNewEvent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: light-dark(rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0.75));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgb(128 128 128 /0.25);
+    width: min(400px, 92dvw);
+    padding: 1rem;
+    border-radius: 8px;
+    position: fixed;
+    bottom: 6rem;
+    z-index: 2;
+    right: var(--offset);
+    /* transform: translate(0, -50%); */
+}
+
+
+
+
+.field-label-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: start;
+    justify-content: start;
+    gap: 2px;
+
+}
+
+.input-wrapper {
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    border: 1.5px solid rgb(128 128 128 /0.25);
+    border-radius: 4px;
+    transition: all 50ms;
+}
+
+.input-label {
+    font-weight: 600;
+    font-size: 14px;
+    padding-inline-start: 2px;
+    opacity: 0.8;
+
+    &[aria-required="true"] {
+        position: relative;
+
+        &::after {
+            content: '*';
+            position: absolute;
+            top: 0px;
+            right: -8px;
+            font-size: 11px;
+            color: light-dark(red, rgb(250, 93, 93));
+
+        }
+    }
+}
+
+input.event-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1rem;
+    font-family: var(--font);
+}
+
+
+.input-wrapper:has(input.event-input:focus),
+.input-wrapper:has(textarea.event-input:focus) {
+    border: 1.5px solid rgba(30, 143, 255, 0.696);
+    outline: 2px solid rgba(30, 143, 255, 0.25);
+}
+
+
+
+textarea.event-input {
+    resize: vertical;
+    flex: 1;
+    font-size: 1rem;
+    padding: 0.5rem 0.5rem;
+    border: none;
+    outline: none;
+    background: none;
+    min-height: 150px;
+    max-height: 500px;
+}
+
+.add-event-wrapper {
+    border: none !important;
+    outline: none !important;
+    background: var(--accent);
+    cursor: pointer;
+    transition: all 50ms;
+
+    &:hover {
+        background: var(--text);
+    }
+}
+
+input.add-event {
+    color: var(--bg);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cta {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bg);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+
+    svg {
+        /* opacity: 0.75; */
+    }
+}
+
+
+
+
+
+/*----------------- Switch-------------------------- */
+
+:root {
+    color-scheme: light dark;
+    --accent: light-dark(dodgerblue, rgb(32 205 32));
+    --switch-bg: light-dark(rgb(210 210 210), rgb(50 50 50));
+    --switch-i-bg: light-dark(white, white);
+    --size: 24px;
+}
+
+.switch-container {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.switch {
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 25px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.switch.checked {
+    background-color: var(--accent);
+    /* Green for checked state */
+}
+
+.switch-handle {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2.5px;
+    left: 2px;
+    transition: left 0.3s ease;
+}
+
+.switch.checked .switch-handle {
+    left: 28px;
+}
+
+@keyframes btnMomentumOn {
+    0% {
+        transform: translate(-5%, 0);
+    }
+
+    33% {
+        transform: translate(5%, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes btnMomentumOff {
+    0% {
+        transform: translate(5%, 0);
+    }
+
+    33% {
+        transform: translate(-5%, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+
+/* ------------------------------------ */
