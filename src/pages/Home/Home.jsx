@@ -163,7 +163,7 @@ const AddNewEvent = () => {
 
                         <div onClick={() => {
                             setIsChecked(p => !p)
-                        }} style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '12px', marginBlock: '0.125rem 0.5rem' }}>
+                        }} style={{ display: 'flex', cursor: "pointer", justifyContent: 'start', alignItems: 'center', gap: '12px', marginBlock: '0.125rem 0.5rem' }}>
                             <div style={{ transition: 'none', background: 'none' }}
                             >
                                 <Switch isChecked={isChecked} />
