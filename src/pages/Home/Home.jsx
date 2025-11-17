@@ -270,7 +270,7 @@ const EventList = () => {
         const diffInSec = diffInMs / 1000;
         const days = Math.floor(diffInSec / (3600 * 24));
         const hours = Math.floor((diffInSec % (3600 * 24)) / 3600);
-        const result = `${days}d ${hours}hrs`
+        const result = days ? `${days}d ${hours}hrs` : `${hours}hrs`
         return result.toLowerCase().includes('nan') ? "Invalid Date" : result;
     }, [currentTime]);
 
