@@ -1,18 +1,191 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+# 🗓️ **DateTime — A Lightweight Event Tracker**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A lightweight **React app** for creating, organizing, and tracking personal events.
+It includes **search**, **sorting**, **real-time countdowns**, **auto-deletion after expiration**, clean minimal UI, and a responsive layout that works on desktop and mobile.
 
-## React Compiler
+---
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## ✨ Features
 
-Note: This will impact Vite dev & build performances.
+### 🔍 Event Management
 
-## Expanding the ESLint configuration
+* Add events with **labels**, **date & time**, and optional **notes**
+* Search events instantly by name
+* Sort events by:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+  * **Date** (Ascending / Descending)
+
+### 🕒 Smart Time Handling
+
+* Live **real-time countdown** (updates automatically every minute)
+* Automatic detection of upcoming vs completed events
+* Optional **auto-delete** of completed events
+
+### 📱 Responsive & UX Focused
+
+* Clean minimal UI using custom CSS
+* Zero-state illustrations and helpful empty screens
+* Mobile-friendly layout and interaction behavior
+* Switchable **grid / list view** (desktop), list default on mobile
+
+### 🗂️ Data Persistence
+
+* Uses local storage
+
+### 🧩 Components Included
+
+* Event list with grouping (upcoming / completed)
+* Add event form
+* Event detail modal (click outside to close)
+* Switch toggle component
+* Zero-state screens with illustrations
+
+---
+
+## 🚀 Getting Started
+
+### **1. Clone the repository**
+
+```sh
+git clone https://github.com/yourname/datetime.git
+cd datetime
+```
+
+### **2. Install dependencies**
+
+Using **bun**:
+
+```sh
+bun install
+```
+
+Or using npm:
+
+```sh
+npm install
+```
+
+### **3. Start the dev server**
+
+```sh
+bun dev
+```
+
+or:
+
+```sh
+npm run dev
+```
+
+Then open:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🧱 Project Structure
+
+```
+.
+├── README.md
+├── bun.lock
+├── eslint.config.js
+├── index.html
+├── package.json
+├── vite.config.js
+│
+├── public/
+│   └── favicon/      # icons & manifest files
+│
+└── src/
+    ├── assets/
+    │   ├── fonts/    # Google Sans & Inter
+    │   └── images/   # zero-state illustrations
+    │
+    ├── components/
+    │   └── Switch.jsx
+    │
+    ├── pages/
+    │   ├── Home/
+    │   │   └── Home.jsx
+    │   ├── Layout.jsx
+    │   └── index.jsx
+    │
+    ├── providers/
+    │   ├── DeviceProvider.jsx
+    │   ├── RouterProvider.jsx
+    │   ├── UserProvider.jsx
+    │   └── index.jsx
+    │
+    ├── styles/
+    │   ├── fonts.css
+    │   ├── form.css
+    │   └── home.css
+    │
+    └── utils/
+        ├── constants/
+        │   └── index.js
+        └── hooks/
+            └── ls/
+                └── useLocalStorageUsage.js
+```
+
+---
+
+## 🛠 Tech Stack
+
+* **React 18**
+* **Vite**
+* **Bun / Node**
+* Custom CSS (no UI libraries)
+* **LocalStorage** for persistence
+* Responsive design techniques
+* Context Providers:
+
+  * `UserProvider` — user data + events
+  * `DeviceProvider` — platform detection
+
+---
+
+## 🧩 Key Components
+
+### **📝 Add Event Form**
+
+* Event name
+* Date & time
+* Optional note
+* Toggle: auto-delete after completion
+
+### **📄 Event List**
+
+* Grid & list modes
+* Hover delete (desktop)
+* Tap “Open” on mobile
+
+---
+
+## 🧹 Auto Deletion Behavior
+
+If `autoDelete` is enabled on an event:
+
+* When its date/time has passed,
+* It is automatically removed on the next minute tick.
+
+This keeps your event list clean without manual cleanup.
+
+---
+
+## 🚦 Roadmap / Ideas
+
+* Dark/light theme toggle
+* Edit existing events
+* Categories / tags
+* Export & import events
+* Notifications
+
+---
