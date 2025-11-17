@@ -161,14 +161,14 @@ const AddNewEvent = () => {
                             </div>
                         </label>
 
-                        <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '12px', marginBlock: '0.125rem 0.5rem' }}>
+                        <div onClick={() => {
+                            setIsChecked(p => !p)
+                        }} style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '12px', marginBlock: '0.125rem 0.5rem' }}>
                             <div style={{ transition: 'none', background: 'none' }}
-                                onClick={() => {
-                                    setIsChecked(p => !p)
-                                }}>
+                            >
                                 <Switch isChecked={isChecked} />
                             </div>
-                            <span style={{ fontSize: '14px', opacity: 0.75, cursor: "default", userSelect: "none" }} className="input-label">Auto Delete After Completion</span>
+                            <span style={{ fontSize: '14px', opacity: 0.75, cursor: "default", userSelect: "none", marginTop: '1.5px' }} className="input-label">Auto Delete After Completion</span>
                         </div>
 
 
