@@ -570,7 +570,10 @@ const EventModal = ({ item, setItem, handleDelete }) => {
                         </div>
                     )}
                     <div className="modal-footer">
-                        <button onClick={() => handleDelete(id)} className="modal-delete">Delete</button>
+                        <button onClick={() => {
+                            handleDelete(id);
+                            setItem(null);
+                        }} className="modal-delete">Delete</button>
                         <button onClick={() => setItem(null)} className="modal-close">Close</button>
                     </div>
                 </div>
