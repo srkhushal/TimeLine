@@ -60,6 +60,8 @@ form.addNewEvent {
     border: 1.5px solid rgb(128 128 128 /0.25);
     border-radius: 14px;
     transition: all 50ms;
+    position: relative;
+    z-index: -1;
 }
 
 .input-wrapper:has(input) {
@@ -70,6 +72,8 @@ form.addNewEvent {
     input,
     textarea {
         border-radius: 14px;
+        position: relative;
+        z-index: 0;
     }
 }
 
