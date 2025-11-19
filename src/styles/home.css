@@ -21,9 +21,9 @@
 
     .events-options {
         div:has(input) {
+            position: relative;
 
             input {
-
                 &::placeholder {
                     font-size: 0.75rem !important;
                 }
@@ -62,32 +62,30 @@ input[name="event-search"] {
     height: 60px !important;
     z-index: 3;
     background: var(--bg);
+}
 
-    div:has(input) {
-        flex: 1;
+.event-search {
+    min-width: 200px;
+    /* width: 100%; */
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid rgb(128 128 128 /0.25);
+    outline: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-family: var(--font);
+    min-height: 40px;
+    z-index: 0;
 
-        input {
-            min-width: 200px;
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            border: 1.5px solid rgb(128 128 128 /0.25);
-            outline: none;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-family: var(--font);
-            min-height: 40px;
-
-            &::placeholder {
-                font-size: 1rem;
-            }
-
-            &:focus {
-                border: 1.5px solid rgba(30, 143, 255, 0.696);
-                outline: 2px solid rgba(30, 143, 255, 0.25);
-            }
-
-        }
+    &::placeholder {
+        font-size: 1rem;
     }
+
+    &:focus {
+        border: 1.5px solid rgba(30, 143, 255, 0.696);
+        outline: 2px solid rgba(30, 143, 255, 0.25);
+    }
+
 }
 
 .events-list-meta {

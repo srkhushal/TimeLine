@@ -420,8 +420,26 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
     }, [sortedEvents, input, hideCompleted]);
 
 
+
     const [showDelete, setShowDelete] = useState({ id: null, state: false });
     const [selectedEvent, setSelectedEvent] = useState(null);
+
+    const searchInputRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (searchInputRef.current && !searchInputRef.current.contains(e.target)) {
+                searchInputRef.current.blur();
+            }
+        };
+
+        document.addEventListener("click", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
+
 
     if (!events?.length && input.length) {
         return <ZeroEvents type="noresult" />
@@ -436,14 +454,28 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
     return (
         <div className="events-wrapper">
             <div className="events-options">
-                <div >
-                    <input
-                        onChange={handleSearchInput}
-                        type="text"
-                        name="event-search"
-                        placeholder="Search event name..."
-                    />
-                </div>
+
+                <input
+                    ref={searchInputRef}
+                    onClick={() => {
+                        if (searchInputRef?.current) {
+                            searchInputRef.current.focus()
+                        }
+                    }
+                    }
+                    onBlur={() => {
+                        if (searchInputRef?.current) {
+                            searchInputRef.current.blur();
+                        }
+                    }}
+
+                    onChange={handleSearchInput}
+                    type="text"
+                    name="event-search"
+                    className="event-search"
+                    placeholder="Search event name..."
+                />
+
 
                 <div
                     style={{
