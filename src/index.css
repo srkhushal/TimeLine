@@ -61,3 +61,9 @@ main {
   max-width: 1250px;
   padding-bottom: 5.5rem;
 }
+
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+  font-size: 16px !important;
+}

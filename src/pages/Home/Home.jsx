@@ -235,10 +235,10 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             <span aria-required className="input-label">Date & Time</span>
 
                             <div className="input-wrapper">
-                                <input onBlur={handleDTInput} required className="event-input" name="event-dnt" type="datetime-local" />
+                                <input onBlur={handleDTInput} required className="event-input" name="event-dnt" type="date" />
                             </div>
-                        </label>
 
+                        </label>
                         <label className="field-label-wrapper">
 
                             <span className="input-label" >Quick Note</span>
