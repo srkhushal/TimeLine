@@ -124,7 +124,7 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
                     // marginLeft: '3px'
                 }}>
                     <span style={{
-                        fontSize: "14px", opacity: 0.75
+                        fontSize: "0.78rem", opacity: 0.75
                     }}>
                         {time.toDateString()}
                     </span>
@@ -132,7 +132,7 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
                         {"•"}
                     </span>
                     <span style={{
-                        fontSize: "14px", opacity: 0.75
+                        fontSize: "0.78rem", opacity: 0.75
                     }}>
                         {`${pad(time.getHours())}:${pad(time.getMinutes())}`}
                     </span>
@@ -255,7 +255,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             >
                                 <Switch isChecked={isChecked} />
                             </div>
-                            <span style={{ fontSize: '14px', opacity: 0.75, userSelect: "none", marginTop: '1.5px' }} className="input-label">Auto Delete After Completion</span>
+                            <span style={{ fontSize: '0.78rem', opacity: 0.75, userSelect: "none", marginTop: '1.5px' }} className="input-label">Auto Delete After Completion</span>
                         </div>
 
 
@@ -483,7 +483,7 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
                 </div>
             </div>
             <div className="events-list-meta" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
-                <span style={{ marginTop: '4px', fontSize: '11px', opacity: 0.75, marginLeft: '6px', fontFamily: "monospace" }}>{filteredEvents.upcoming.length} Upcoming Event{filteredEvents.upcoming.length > 1 ? "s" : ""}, {filteredEvents.completed.length} Completed</span>
+                <span style={{ marginTop: '4px', fontSize: '0.61rem', opacity: 0.75, marginLeft: '6px', fontFamily: "monospace" }}>{filteredEvents.upcoming.length} Upcoming Event{filteredEvents.upcoming.length > 1 ? "s" : ""}, {filteredEvents.completed.length} Completed</span>
                 {
                     !filteredEvents.completed.length ? '' :
                         <span onClick={() => {
@@ -494,7 +494,7 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
                                     hideCompleted: !p?.settings?.hideCompleted
                                 }
                             }))
-                        }} style={{ userSelect: "none", marginTop: '4px', fontSize: '11px', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
+                        }} style={{ userSelect: "none", marginTop: '4px', fontSize: '0.61rem', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
                             [{hideCompleted ? "Unhide" : "Hide"} Completed]
                         </span>
                 }
@@ -696,13 +696,13 @@ const ZeroEvents = ({ type = 'nodata', showAddEvent, setShowAddEvent }) => {
             </div>
             {
                 type === 'nodata' ? <div className="no-events-message" style={{ gap: '0.125rem' }}>
-                    <span style={{ opacity: 0.95, fontSize: '13px', fontStyle: '' }}>Looks like you haven't added any events yet.</span>
-                    <span style={{ opacity: 0.95, fontSize: '13px', fontStyle: '' }}>{""}Add your first event and stay organized.</span>
+                    <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>Looks like you haven't added any events yet.</span>
+                    <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>{""}Add your first event and stay organized.</span>
                 </div>
                     : <div className="no-events-message" style={{ gap: '0.125rem' }}>
 
-                        <span style={{ opacity: 0.95, fontSize: '13px', fontStyle: '' }}>Nothing here :( </span>
-                        <span style={{ opacity: 0.95, fontSize: '13px', fontStyle: '' }}>{""}No event found with this name.</span>
+                        <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>Nothing here :( </span>
+                        <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>{""}No event found with this name.</span>
                     </div>
             }
 

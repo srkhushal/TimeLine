@@ -34,7 +34,7 @@
         width: 100%;
 
         span {
-            font-size: 13px;
+            font-size: 0.72rem;
             min-width: 78px;
         }
     }
@@ -44,14 +44,14 @@
         gap: 1rem;
 
         span {
-            font-size: 13px;
+            font-size: 0.72rem;
         }
 
     }
 }
 
 .font-block {
-    font-size: 12px;
+    font-size: 0.67rem;
     background: light-dark(rgb(229, 229, 229), rgb(19, 19, 19));
     flex: 1;
     display: flex;
@@ -70,7 +70,7 @@
 
 .sample-text {
     position: relative;
-    font-size: 14px;
+    font-size: 0.78rem;
     display: flex;
     justify-content: start;
     align-items: start;
@@ -99,7 +99,7 @@ button.reset-app {
     margin-top: 2rem;
     cursor: pointer;
     padding: 0.5rem 1rem;
-    font-size: 14px;
+    font-size: 0.78rem;
     font-family: var(--font);
 
     border-radius: 10dvw;
