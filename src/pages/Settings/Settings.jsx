@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { defaultUser, useUser } from "../../providers/UserProvider";
-import test from "../../assets/images/test.avif";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { defaultUser, useUser } from "../../providers/UserProvider";
 
 export function Settings() {
     const [showAddEvent, setShowAddEvent] = useState(false);
@@ -14,6 +13,7 @@ export function Settings() {
                     <span onClick={() => {
                         nav("/")
                     }} style={{ opacity: 0.75, textDecoration: 'underline' }}>
+
                         Home
                     </span>
 
