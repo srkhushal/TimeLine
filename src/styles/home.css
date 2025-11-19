@@ -498,7 +498,7 @@ body:has(div.event-modal) {
     padding: 4px;
     height: fit-content;
     border-radius: 14px;
-    z-index: 11;
+    z-index: 12;
     background: var(--bg);
 
     ul {
