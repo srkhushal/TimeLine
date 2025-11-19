@@ -1,8 +1,13 @@
 @media (prefers-color-scheme: dark) {
 
-    .zero-state-image {
-        filter: invert(1) !important;
+
+    .arrowImage {
+        filter: invert(0) brightness(20) !important;
     }
+}
+
+@media (prefers-color-scheme: light) {
+
 
     .arrowImage {
         filter: invert(0) brightness(20) !important;
@@ -134,7 +139,6 @@ input[name="event-search"] {
     /* border-style: dashed; */
     /* box-shadow: 1px 1px 5px rgba(30, 151, 0, 0.185); */
     background: light-dark(rgb(252, 255, 252), rgb(4, 14, 4));
-
 }
 
 .event-label {
@@ -270,7 +274,6 @@ span.completed {
     height: 300px;
     max-width: 300px;
     object-fit: contain;
-    filter: invert(0);
 }
 
 .no-events-message {

@@ -10,7 +10,7 @@ import zs6 from "../../assets/images/zerostate6.avif";
 import arrow from "../../assets/images/arrow.svg";
 import Switch from "../../components/Switch.jsx";
 import { useNavigate } from "react-router-dom";
-
+import { useSystemDark } from "../../utils/hooks/theme/useSystemDark"
 export function Home() {
     const [showAddEvent, setShowAddEvent] = useState(false);
     return (
@@ -593,12 +593,14 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
                                     {
                                         ((showDelete.id === id) && showDelete.state) ? <button
                                             className={device?.type?.isMobile ? "delete-event-btn" : "delete-event-icon"}
-                                            onClick={() => {
+                                            onClick={(e) => {
                                                 if (device?.type?.isMobile) {
                                                     setSelectedEvent(item);
                                                     setShowDelete({ id: null, state: false })
                                                     return;
                                                 };
+                                                e.preventDefault();
+                                                e.stopPropagation();
                                                 handleDelete(id);
                                             }}
                                         >
@@ -703,11 +705,18 @@ const ZeroEvents = ({ type = 'nodata', showAddEvent, setShowAddEvent }) => {
     }, [allImages, type]);
     const { user } = useUser();
 
+    const systemDark = useSystemDark();
+
+    const isDark =
+        user?.settings?.theme?.mode === "dark" ||
+        (user?.settings?.theme?.mode === "system" && systemDark);
     return (
         <div className="zero-events-wrapper" >
             <div className="zero-events-image-container">
                 <img
-                    style={{ filter: user?.settings?.theme?.mode === "dark" ? "invert(1)" : "unset" }}
+                    style={{
+                        filter: isDark ? "invert(1)" : "unset",
+                    }}
                     src={randomImg}
                     className="zero-state-image"
                     alt="No events illustration"
