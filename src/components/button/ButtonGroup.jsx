@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function ButtonGroup({ items = [] }) {
 
     const [activeIndex, setActiveIndex] = useState(() => {
-        return items.findIndex(i => i?.isActive);
+        return items.findIndex(i => (i?.isActive));
     });
 
     return (
@@ -13,6 +13,9 @@ export default function ButtonGroup({ items = [] }) {
                     {...item.props}
                     key={index}
                     className={`btn-grp-item ${activeIndex === index ? "active" : ""}`}
+                    style={{
+                        ...(item?.style || {})
+                    }}
                     onClick={() => {
                         setActiveIndex(index);
                         item?.props?.onClick?.();

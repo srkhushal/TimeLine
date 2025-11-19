@@ -97,8 +97,8 @@ export function ViewIcon({ mode = "grid", onClick }) {
 
 
 const svgStyles = {
-    width: "20",
-    height: "20",
+    width: "1rem",
+    height: "1rem",
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -137,7 +137,7 @@ export function BackIcon() {
         </div>
     )
 }
-export function LightMode() {
+export function LightIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg"
             {...svgStyles}
@@ -154,7 +154,7 @@ export function LightMode() {
         </svg>
     )
 }
-export function DarkMode() {
+export function DarkIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg"
             {...svgStyles}
@@ -164,7 +164,7 @@ export function DarkMode() {
     )
 }
 
-export function SystemTheme() {
+export function SystemThemeIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg"
             {...svgStyles}
@@ -172,6 +172,124 @@ export function SystemTheme() {
             <rect width="20" height="14" x="2" y="3" rx="2" />
             <line x1="8" x2="16" y1="21" y2="21" />
             <line x1="12" x2="12" y1="17" y2="21" />
+        </svg>
+    )
+}
+export function ThemeIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg"
+            {...svgStyles}
+        >
+            <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" />
+            <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+            <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+            <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+            <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+        </svg>
+    )
+}
+
+export function SepiaIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg"
+            {...svgStyles}
+        >
+            <rect width="16" height="6" x="2" y="2" rx="2" />
+            <path d="M10 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+            <rect width="4" height="6" x="8" y="16" rx="1" />
+        </svg>
+    )
+}
+export function BrightnessIcon({ level = 'mid' }) {
+    if (level === 'mid') {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg"
+                {...svgStyles}
+            >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 3v1" />
+                <path d="M12 20v1" />
+                <path d="M3 12h1" />
+                <path d="M20 12h1" />
+                <path d="m18.364 5.636-.707.707" />
+                <path d="m6.343 17.657-.707.707" />
+                <path d="m5.636 5.636.707.707" />
+                <path d="m17.657 17.657.707.707" />
+            </svg>
+        )
+    } else if (level === 'high') {
+        return <LightIcon />
+    } else if (level === 'low')
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg"
+                {...svgStyles}
+            >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 4h.01" />
+                <path d="M20 12h.01" />
+                <path d="M12 20h.01" />
+                <path d="M4 12h.01" />
+                <path d="M17.657 6.343h.01" />
+                <path d="M17.657 17.657h.01" />
+                <path d="M6.343 17.657h.01" />
+                <path d="M6.343 6.343h.01" />
+            </svg>
+        )
+}
+export function FontIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg"
+            {...svgStyles}>
+            <path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16" />
+            <path d="M22 9v7" />
+            <path d="M3.304 13h6.392" />
+            <circle cx="18.5" cy="12.5" r="3.5" />
+        </svg>
+    )
+}
+export function FontSizeIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" {...svgStyles}>
+            <path d="M15 5h6" />
+            <path d="M15 12h6" />
+            <path d="M3 19h18" />
+            <path d="m3 12 3.553-7.724a.5.5 0 0 1 .894 0L11 12" />
+            <path d="M3.92 10h6.16" />
+        </svg>
+    )
+}
+export function HistoryIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" {...svgStyles}>
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+            <path d="M12 7v5l4 2" />
+        </svg>
+    )
+}
+export function ResetIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg"{...svgStyles}>
+            <path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" />
+            <path d="m5.082 11.09 8.828 8.828" />
+        </svg>
+    )
+}
+export function AlertIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" {...svgStyles}>
+            <path d="M12 16h.01" />
+            <path d="M12 8v4" />
+            <path d="M15.312 2a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586l-4.688-4.688A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2z" />
+        </svg>
+    )
+}
+export function InfoIcon({ ...props }) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" {...svgStyles} {...props}>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4" />
+            <path d="M12 8h.01" />
         </svg>
     )
 }

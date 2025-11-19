@@ -5,6 +5,7 @@
     --bg: light-dark(var(--white-main), var(--black-main));
     --btn-fill-accent-inactive: light-dark(rgb(196, 180, 248), rgb(100, 85, 146));
     --btn-fill-accent-active: light-dark(rgb(100, 85, 146), rgb(196, 180, 248));
+    --empty: light-dark(gainsboro, rgb(42, 42, 42));
 }
 
 div.btn-grp {
@@ -27,7 +28,7 @@ button.btn-grp-item {
     cursor: pointer;
     height: 2.5rem;
     min-width: fit-content;
-    color: var(--font);
+    color: var(--text);
     border: none;
     border-radius: 0.65rem;
     transition: all 250ms;
@@ -45,6 +46,22 @@ button.btn-grp-item {
         border-bottom-right-radius: 10dvw;
         border-top-left-radius: 0.65rem;
     }
+}
+
+button.single-btn {
+    font-size: 0.75rem;
+    background: var(--btn-fill-accent-inactive);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+    height: 2.5rem;
+    min-width: fit-content;
+    color: var(--text);
+    border: none;
+    border-radius: 10dvw;
+    transition: all 250ms;
 }
 
 button.btn-grp-item.active {
@@ -66,5 +83,181 @@ button.btn-grp-item.active {
 
     100% {
         transform: scale3d(1, 1, 1);
+    }
+}
+
+
+div.slider-track-path {
+    width: min(400px, 100%);
+    height: 0.45rem;
+    background: var(--empty);
+    border-radius: 10dvw;
+    position: relative;
+    cursor: pointer;
+    margin-block: calc(0.35 * (1.65rem - 0.45rem));
+}
+
+button.slider-thumb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.65rem;
+    height: 1.65rem;
+    background: var(--btn-fill-accent-inactive);
+    border-radius: 10dvw;
+    pointer-events: none !important;
+    border: 3px solid var(--bg);
+    transition: background 350ms;
+    user-select: none !important;
+
+    &:active,
+    &:focus {
+        background: var(--btn-fill-accent-active);
+    }
+}
+
+div.slider-track-filled {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--btn-fill-accent-active);
+    border-radius: 10dvw;
+}
+
+
+input.input-box-text {
+    min-height: 40px;
+    border: none;
+    border-bottom: 1.5px solid rgb(128 128 128 /0.25);
+    border-radius: 0;
+    padding: 0.5rem 0.75rem;
+    outline: none;
+    background: gainsboro;
+    font-size: 1rem;
+    font-family: var(--font);
+    margin-top: 0.5rem;
+    width: min(100%, 400px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* TEXT */
+.tip {
+    font-size: 0.75rem !important;
+    opacity: 0.75;
+    position: relative;
+    padding-left: 0.25rem;
+
+    &::before {
+        position: absolute;
+        content: '';
+        left: -0.25rem;
+        height: 100%;
+        width: 0.125rem;
+        background: var(--btn-fill-accent-active);
     }
 }

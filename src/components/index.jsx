@@ -3,3 +3,4 @@ export { ZeroEvents } from "./emptystate/ZeroEvents.jsx";
 export { SortIcon, ViewIcon } from "./icons/Icons.jsx";
 export { Switch } from "./form/Switch.jsx";
 export { Menu } from "./menu/Menu.jsx";
+export { Slider } from "./slider/Slider.jsx";

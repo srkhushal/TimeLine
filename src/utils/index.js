@@ -3,3 +3,4 @@ export { hexToRgb, applySepia, applyBrightness, applyContrast, filterColor } fro
 export { useLocalStorageUsage } from "./hooks/ls/useLocalStorageUsage.js";
 export { useSystemDark } from "./hooks/theme/useSystemDark.js";
 export { minimalText } from "./strings/strings.js";
+export { exportData, importData } from "./files/files.js";
