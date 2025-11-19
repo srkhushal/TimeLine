@@ -9,11 +9,10 @@ export function Settings() {
         <div className="settingsPage">
             <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'baseline' }}>
                 <h1 onClick={() => window.location.reload()}>Settings</h1>
-                <span style={{ fontSize: '0.5rem', display: "flex", cursor: "pointer", alignItems: "center", gap: '4px' }}>
+                <span style={{ fontSize: '1rem', display: "flex", cursor: "pointer", alignItems: "center", gap: '4px' }}>
                     <span onClick={() => {
                         nav("/")
                     }} style={{ opacity: 0.75, textDecoration: 'underline' }}>
-
                         Home
                     </span>
 
@@ -76,6 +75,7 @@ const AppearanceSettings = () => {
             }
         }));
     }
+    const [brightnessRange, setBrightnessRange] = useState(100);
 
     return (
         <div className="appearanceSettings">
@@ -108,7 +108,8 @@ const AppearanceSettings = () => {
                     max={100}
                     value={parseInt(user?.settings?.filter?.sepia ?? 0)}
                     onChange={(e) => {
-                        handleFilterUpdate("sepia", Number(e.target.value) + "%");
+                        const val = Number(e.target.value);
+                        handleFilterUpdate("sepia", val + "%");
                     }}
                 />
             </label>
@@ -119,8 +120,8 @@ const AppearanceSettings = () => {
                     type="range"
                     name="brightness-val"
                     id="brightness-val"
-                    min={25}
-                    max={100}
+                    min={0.25 * brightnessRange}
+                    max={brightnessRange}
                     value={parseInt(user?.settings?.filter?.brightness ?? 0)}
                     onChange={(e) => {
                         handleFilterUpdate("brightness", Number(e.target.value) + "%");

@@ -699,10 +699,10 @@ const ZeroEvents = ({ type = 'nodata', showAddEvent, setShowAddEvent }) => {
         return [zs1, zs2, zs3, zs4, zs5, zs6];
     }, []);
 
-    const randomImg = useMemo(() => {
+    const [randomImg, setRandomImg] = useState(() => {
         const rnIdx = Math.floor(allImages.length * Math.random());
         return type === 'noresult' ? allImages[3] : allImages[rnIdx];
-    }, [allImages, type]);
+    });
     const { user } = useUser();
 
     const systemDark = useSystemDark();
