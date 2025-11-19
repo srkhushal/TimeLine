@@ -67,112 +67,86 @@ const AppearanceSettings = () => {
     return (
         <div className="appearanceSettings">
 
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
-                    <span style={{ minWidth: '78px' }}>Theme</span>
-                    <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
-                        <div onClick={() => handleThemeUpdate("mode", "light")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'light' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Light
-                        </div>
-                        <div onClick={() => handleThemeUpdate("mode", "dark")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'dark' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Dark
-                        </div>
-                        <div onClick={() => handleThemeUpdate("mode", "system")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'system' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            System
-                        </div>
-                    </div>
 
+            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
+                <span style={{ minWidth: '78px' }}>Theme</span>
+                <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
+                    <div onClick={() => handleThemeUpdate("mode", "light")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'light' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Light
+                    </div>
+                    <div onClick={() => handleThemeUpdate("mode", "dark")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'dark' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Dark
+                    </div>
+                    <div onClick={() => handleThemeUpdate("mode", "system")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'system' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        System
+                    </div>
                 </div>
 
-
-                <label>
-                    <span>Sepia</span>
-                    <input
-                        style={{ width: 'min(300px, 100%)' }}
-                        type="range"
-                        name="sepia-val"
-                        id="sepia-val"
-                        min={0}
-                        max={100}
-                        value={parseInt(user?.settings?.filter?.sepia ?? 0)}
-                        onChange={(e) => {
-                            handleFilterUpdate("sepia", Number(e.target.value) + "%");
-                        }}
-                    />
-                </label>
-                <label>
-                    <span>Brightness</span>
-                    <input
-                        style={{ width: 'min(300px, 100%)' }}
-                        type="range"
-                        name="brightness-val"
-                        id="brightness-val"
-                        min={25}
-                        max={100}
-                        value={parseInt(user?.settings?.filter?.brightness ?? 0)}
-                        onChange={(e) => {
-                            handleFilterUpdate("brightness", Number(e.target.value) + "%");
-                        }}
-                    />
-                </label>
-
-                <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
-                    <span style={{ minWidth: '78px' }}>Font</span>
-                    <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
-                        <div onClick={() => handleFontUpdate("fontFamily", "Google Sans Code")} className="font-block" style={{ fontFamily: "Google Sans Code", border: user?.settings?.font?.fontFamily === 'Google Sans Code' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Monospace
-                        </div>
-                        <div onClick={() => handleFontUpdate("fontFamily", "Google Sans Flex")} className="font-block" style={{ fontFamily: "Google Sans Flex", border: user?.settings?.font?.fontFamily === "Google Sans Flex" ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Sans-Serif
-                        </div>
-                        <div onClick={() => handleFontUpdate("fontFamily", "Open Sans")} className="font-block" style={{ fontFamily: "Open Sans", border: user?.settings?.font?.fontFamily === 'Open Sans' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Open Sans
-                        </div>
-                    </div>
-
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
-                    <span style={{ minWidth: '78px' }}>Font Size</span>
-                    <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
-                        <div onClick={() => handleFontUpdate("fontSize", "80%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "60%", border: user?.settings?.font?.fontSize === '80%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Aa
-                        </div>
-                        <div onClick={() => handleFontUpdate("fontSize", "100%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "90%", border: user?.settings?.font?.fontSize === '100%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Aa
-                        </div>
-                        <div onClick={() => handleFontUpdate("fontSize", "130%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "120%", border: user?.settings?.font?.fontSize === '130%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                            Aa
-                        </div>
-                    </div>
-
-                </div>
             </div>
 
-            {
-                false && <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    {/* <span style={{ fontSize: '0.72rem', opacity: 0.75 }}>* Sample *</span> */}
-                    <div className="sample-text" >
-                        <span>
-                            <span style={{ wordBreak: 'break-all', maxWidth: '50ch' }}>
-                                Seven six eleven five nine-an'-twenty mile to-day
-                                <br />
-                                Four eleven seventeen thirty-two the day before
-                                <br />
-                                (Boots boots boots boots movin' up and down again!)
-                                <br />
-                                There's no discharge in the war!
-                            </span>
-                            <br />
-                            <span>
-                                0123456789
-                            </span>
-                        </span>
-                        <img src={test} style={{ width: "min(100%,150px)", height: "min(100%,150px)", aspectRatio: 1, objectFit: "cover" }} />
+
+            <label>
+                <span>Sepia</span>
+                <input
+                    style={{ width: 'min(300px, 100%)' }}
+                    type="range"
+                    name="sepia-val"
+                    id="sepia-val"
+                    min={0}
+                    max={100}
+                    value={parseInt(user?.settings?.filter?.sepia ?? 0)}
+                    onChange={(e) => {
+                        handleFilterUpdate("sepia", Number(e.target.value) + "%");
+                    }}
+                />
+            </label>
+            <label>
+                <span>Brightness</span>
+                <input
+                    style={{ width: 'min(300px, 100%)' }}
+                    type="range"
+                    name="brightness-val"
+                    id="brightness-val"
+                    min={25}
+                    max={100}
+                    value={parseInt(user?.settings?.filter?.brightness ?? 0)}
+                    onChange={(e) => {
+                        handleFilterUpdate("brightness", Number(e.target.value) + "%");
+                    }}
+                />
+            </label>
+
+            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
+                <span style={{ minWidth: '78px' }}>Font</span>
+                <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
+                    <div onClick={() => handleFontUpdate("fontFamily", "Google Sans Code")} className="font-block" style={{ fontFamily: "Google Sans Code", border: user?.settings?.font?.fontFamily === 'Google Sans Code' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Monospace
+                    </div>
+                    <div onClick={() => handleFontUpdate("fontFamily", "Google Sans Flex")} className="font-block" style={{ fontFamily: "Google Sans Flex", border: user?.settings?.font?.fontFamily === "Google Sans Flex" ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Sans-Serif
+                    </div>
+                    <div onClick={() => handleFontUpdate("fontFamily", "Open Sans")} className="font-block" style={{ fontFamily: "Open Sans", border: user?.settings?.font?.fontFamily === 'Open Sans' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Open Sans
                     </div>
                 </div>
-            }
 
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
+                <span style={{ minWidth: '78px' }}>Font Size</span>
+                <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
+                    <div onClick={() => handleFontUpdate("fontSize", "80%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "60%", border: user?.settings?.font?.fontSize === '80%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Aa
+                    </div>
+                    <div onClick={() => handleFontUpdate("fontSize", "100%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "90%", border: user?.settings?.font?.fontSize === '100%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Aa
+                    </div>
+                    <div onClick={() => handleFontUpdate("fontSize", "130%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "120%", border: user?.settings?.font?.fontSize === '130%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Aa
+                    </div>
+                </div>
+
+            </div>
 
 
         </div>
