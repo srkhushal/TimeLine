@@ -473,3 +473,50 @@ body:has(div.event-modal) {
     margin: 4px 0 0;
     font-size: 14px;
 }
+
+.profile-icon {
+    width: 36px;
+    height: 36px;
+    background: light-dark(rgb(217, 217, 217), rgb(15, 15, 15));
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-menu-trigger {
+    position: relative;
+}
+
+
+.profile-menu {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    border: 1px solid rgb(128 128 128 /0.25);
+    padding: 4px;
+    height: fit-content;
+    border-radius: 14px;
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        li {
+            padding: 4px 8px;
+            min-width: 10ch;
+            border-radius: 11px;
+            font-size: 13px;
+            transition: all 75ms;
+            cursor: pointer;
+
+            &:hover,
+            &:active {
+                background: light-dark(rgb(233, 233, 233), rgb(15, 15, 15));
+            }
+        }
+    }
+}

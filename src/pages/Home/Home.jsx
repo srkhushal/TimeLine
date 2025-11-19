@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDevice, useUser } from "../../providers";
 
 import zs1 from "../../assets/images/zerostate1.avif";
@@ -9,18 +9,39 @@ import zs5 from "../../assets/images/zerostate5.avif";
 import zs6 from "../../assets/images/zerostate6.avif";
 import arrow from "../../assets/images/arrow.svg";
 import Switch from "../../components/Switch.jsx";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
+    const [showAddEvent, setShowAddEvent] = useState(false);
     return (
         <>
-            <Greeting />
-            <AddNewEvent />
-            <EventList />
+            <Greeting showAddEvent={showAddEvent} setShowAddEvent={setShowAddEvent} />
+            <AddNewEvent showAddEvent={showAddEvent} setShowAddEvent={setShowAddEvent} />
+            <EventList showAddEvent={showAddEvent} setShowAddEvent={setShowAddEvent} />
         </>
     )
 }
 
-const Greeting = () => {
+const Menu = ({ itemsHandlerArray = [] }) => {
+    if (!itemsHandlerArray.length) return;
+    return (
+        <nav className="profile-menu">
+            <ul>
+                {
+                    itemsHandlerArray.map((item, i) => {
+                        return (
+                            <li key={i} onClick={() => item?.onClick?.()}>
+                                {item?.label}
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        </nav>
+    )
+}
+
+const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
     const [time, setTime] = useState(new Date());
 
     useEffect(() => {
@@ -39,45 +60,110 @@ const Greeting = () => {
     else greeting = "Good evening";
 
     const pad = (num) => String(num).padStart(2, "0");
+    const { device } = useDevice();
+    const [showMenu, setShowMenu] = useState(false);
+    const menuRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [setShowMenu]);
+    const nav = useNavigate();
+    const itemsHandlerArray = useMemo(() => {
+        return [
+            { label: "Settings", onClick: () => nav("/settings") },
+        ]
+    }, [nav])
 
     return (
         <div style={{ display: "flex", flexWrap: 'wrap', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h1 onClick={() => window.location.reload()}>{greeting}</h1>
+            {
+                device?.type?.isMobile ? <div style={{ display: "flex", width: '100%', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h1 onClick={() => window.location.reload()}>{greeting}</h1>
+                    <div ref={menuRef} className="profile-menu-trigger" >
+                        <div onClick={() => {
+                            setShowMenu(p => !p);
+                        }} className="profile-icon" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" opacity={0.75} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
+                        </div>
+                        {!showMenu ? '' : <Menu itemsHandlerArray={itemsHandlerArray} />}
+                    </div>
+                </div> : <h1 onClick={() => window.location.reload()}>{greeting}</h1>
+
+            }
 
             <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
                 alignItems: "center",
                 justifyContent: 'space-between',
-                gap: '7px',
+                gap: '1rem',
                 marginLeft: '3px'
             }}>
-                <span style={{
-                    fontSize: "14px", opacity: 0.75
+
+
+                <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: "center",
+                    justifyContent: 'space-between',
+                    gap: '7px',
+                    // marginLeft: '3px'
                 }}>
-                    {time.toDateString()}
-                </span>
-                <span style={{ userSelect: 'none' }}>
-                    {"•"}
-                </span>
-                <span style={{
-                    fontSize: "14px", opacity: 0.75
-                }}>
-                    {`${pad(time.getHours())}:${pad(time.getMinutes())}`}
-                </span>
+                    <span style={{
+                        fontSize: "14px", opacity: 0.75
+                    }}>
+                        {time.toDateString()}
+                    </span>
+                    <span style={{ userSelect: 'none' }}>
+                        {"•"}
+                    </span>
+                    <span style={{
+                        fontSize: "14px", opacity: 0.75
+                    }}>
+                        {`${pad(time.getHours())}:${pad(time.getMinutes())}`}
+                    </span>
+                </div>
+
+                {
+                    device?.type?.isMobile ? '' :
+                        <div ref={menuRef} className="profile-menu-trigger" >
+                            <div onClick={() => {
+                                setShowMenu(p => !p);
+                            }} className="profile-icon" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" opacity={0.75} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
+                            </div>
+                            {!showMenu ? '' : <Menu itemsHandlerArray={itemsHandlerArray} />}
+                        </div>
+
+                }
+
             </div>
         </div>
     );
-};
+});
 
-const AddNewEvent = () => {
+const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
     const { user, setUser } = useUser();
     const [inputs, setInputs] = useState({
         endsOn: "",
         label: "",
         note: "",
     })
-    const [showAddEvent, setShowAddEvent] = useState(false);
+
     const [isChecked, setIsChecked] = useState(true);
 
     const handleLabelInput = (e) => {
@@ -182,7 +268,7 @@ const AddNewEvent = () => {
             }
         </div>
     )
-}
+})
 
 
 
@@ -192,7 +278,7 @@ const AddNewEvent = () => {
 const minimalText = (str, strLength = 30) => {
     return `${str}`.length > strLength ? `${str}`.substring(0, strLength - 3) + '...' : str;
 }
-const EventList = () => {
+const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
     const { user, setUser } = useUser();
     const { device } = useDevice();
     const events = useMemo(() => user?.data?.events || [], [user?.data?.events]);
@@ -342,7 +428,7 @@ const EventList = () => {
     }
 
     if (!events?.length) {
-        return <ZeroEvents type="nodata" />
+        return <ZeroEvents type="nodata" showAddEvent={showAddEvent} setShowAddEvent={setShowAddEvent} />
     }
 
 
@@ -497,7 +583,7 @@ const EventList = () => {
             <EventModal handleDelete={handleDelete} setItem={setSelectedEvent} item={selectedEvent} />
         </div>
     );
-};
+});
 
 const EventModal = ({ item, setItem, handleDelete }) => {
     const emRef = useRef(null);
@@ -588,16 +674,16 @@ const EventModal = ({ item, setItem, handleDelete }) => {
 
 
 // type-> nodata or noresult
-const ZeroEvents = ({ type = 'nodata' }) => {
+const ZeroEvents = ({ type = 'nodata', showAddEvent, setShowAddEvent }) => {
     const allImages = useMemo(() => {
         return [zs1, zs2, zs3, zs4, zs5, zs6];
     }, []);
 
-    const randomImg = useMemo(() => {
+    const [randomImg] = useState(() => {
         const rnIdx = Math.floor(allImages.length * Math.random());
-        const idx = type === 'noresult' ? 3 : rnIdx;
-        return allImages[idx];
-    }, [allImages, type]);
+        return type === 'noresult' ? allImages[3] : allImages[rnIdx];
+    });
+
 
     return (
         <div className="zero-events-wrapper">
@@ -620,7 +706,7 @@ const ZeroEvents = ({ type = 'nodata' }) => {
                     </div>
             }
 
-            {(type === 'nodata') ? <div className="arrowImageWrapper">
+            {((type === 'nodata') && !showAddEvent) ? <div className="arrowImageWrapper">
                 <img src={arrow} className="arrowImage" />
             </div> : ""}
         </div>

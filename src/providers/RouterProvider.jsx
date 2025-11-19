@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "../pages/index.jsx";
+import { Home, Settings } from "../pages/index.jsx";
 import Layout from "../pages/Layout.jsx";
 
 const NotFound = () => {
@@ -14,6 +14,7 @@ const routes = createBrowserRouter([
     {
         path: "/", element: <Layout />, children: [
             { path: "/", element: <Home /> },
+            { path: "/settings", element: <Settings /> },
         ]
     }, {
         path: "*", element: <NotFound />

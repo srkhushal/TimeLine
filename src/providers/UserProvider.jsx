@@ -1,14 +1,22 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { filterColor } from "../utils/func/func";
 
-const UserContext = createContext(null);
 export const defaultUser = {
     settings: {
-        hideCompleted: true
+        hideCompleted: true,
+        filter: {
+            sepia: `0%`,
+            brightness: `100%`
+        },
+        font: {
+            fontFamily: "GoogleSansCode"
+        }
     },
     data: {
         events: []
     }
 }
+const UserContext = createContext({ user: defaultUser, setUser: () => { } });
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(() => {
@@ -30,6 +38,37 @@ export const UserProvider = ({ children }) => {
             console.error("Failed to save user to localStorage:", err);
         }
     }, [user]);
+
+    useEffect(() => {
+        const filter = user?.settings?.filter;
+        if (!filter) return;
+        const filterStr = Object.entries(filter)
+            .map(([key, value]) => `${key}(${value})`)
+            .join(" ");
+
+        document.documentElement.style.filter = filterStr;
+
+        const themeElements = document.querySelectorAll(".theme-content");
+        themeElements.forEach(el => {
+            const originalColor = getComputedStyle(el).color; // normally #000 or #fff
+            const hex = originalColor === "rgb(255, 255, 255)" ? "#fff" : "#000";
+            el.style.color = filterColor(hex, filter);
+        });
+    }, [user?.settings?.filter]);
+
+    useEffect(() => {
+        const font = user?.settings?.font;
+        if (!font) return;
+        let varFont = null;
+        if (font?.fontFamily === 'GoogleSansCode') varFont = "GoogleSansCode, monospace";
+        else if (font?.fontFamily === 'Inter') varFont = "Inter, system-ui";
+
+        document.documentElement.style.setProperty('--font', varFont);
+        document.documentElement.style.fontSize = (font?.fontSize);
+
+    }, [user?.settings?.font]);
+
+
 
     const value = { user, setUser };
 

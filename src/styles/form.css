@@ -160,7 +160,7 @@ input.add-event {
 .cta {
     position: fixed;
     bottom: 2rem;
-    right: 2rem;
+    right: var(--offset);
     width: 52px;
     height: 52px;
     display: flex;
