@@ -454,7 +454,6 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
     return (
         <div className="events-wrapper">
             <div className="events-options">
-
                 <input
                     ref={searchInputRef}
                     onClick={() => {

@@ -95,9 +95,9 @@ input[name="event-search"] {
 
 .events-list-meta {
     position: sticky !important;
-    top: 60px;
+    top: 58px;
     background: var(--bg);
-    height: 30px !important;
+    height: 28px !important;
     z-index: 3;
     padding-bottom: 1rem;
 }
