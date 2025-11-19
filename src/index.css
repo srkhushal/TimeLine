@@ -2,11 +2,12 @@
 @import url(./styles/form.css);
 @import url(./styles/home.css);
 @import url(./styles/settings.css);
+@import url(./styles/theme.css);
 
 :root {
   color-scheme: light dark;
   --offset: 2rem;
-  --bg: light-dark(white, #000);
+  /* --bg: light-dark(white, #000); */
   --text: light-dark(#212121, #fafafa);
   --accent: light-dark(black, white);
   --subtle: light-dark(white, rgb(14 14 14));

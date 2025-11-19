@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ButtonGroup from "../../components/button/ButtonGroup";
+import { BackIcon, DarkMode, LightMode, SystemTheme } from "../../components/icons/Icons";
 import { defaultUser, useUser } from "../../providers/UserProvider";
 
 export function Settings() {
@@ -7,16 +9,13 @@ export function Settings() {
     const nav = useNavigate();
     return (
         <div className="settingsPage">
-            <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <div style={{ display: "flex", justifyContent: 'start', alignItems: 'center', gap: "1rem" }}>
+                <div onClick={() => {
+                    nav("/")
+                }}>
+                    <BackIcon />
+                </div>
                 <h1 onClick={() => window.location.reload()}>Settings</h1>
-                <span style={{ fontSize: '1rem', display: "flex", cursor: "pointer", alignItems: "center", gap: '4px' }}>
-                    <span onClick={() => {
-                        nav("/")
-                    }} style={{ opacity: 0.75, textDecoration: 'underline' }}>
-                        Home
-                    </span>
-
-                </span>
             </div>
             <AppearanceSettings />
             <ShareSettings />
@@ -63,7 +62,8 @@ const AppearanceSettings = () => {
             }
         }));
     }
-    const handleThemeUpdate = (key, val) => {
+    const handleThemeUpdate = useCallback((key, val) => {
+        console.log("handleThemeUpdate called");
         setUser((p) => ({
             ...p,
             settings: {
@@ -74,27 +74,50 @@ const AppearanceSettings = () => {
                 }
             }
         }));
-    }
+    }, [setUser]);
+
     const [brightnessRange, setBrightnessRange] = useState(100);
+
+    const items = useMemo(() => {
+        return ([
+            {
+                children: <LightMode />,
+                isActive: user?.settings?.theme?.mode === "light",
+                props: {
+                    onClick: () => {
+                        handleThemeUpdate("mode", "light");
+                    }
+                }
+            }, {
+                children: <DarkMode />,
+                isActive: user?.settings?.theme?.mode === "dark",
+                props: {
+                    onClick: () => {
+                        handleThemeUpdate("mode", "dark");
+                    }
+                }
+            }, {
+                children: <SystemTheme />,
+                isActive: user?.settings?.theme?.mode === "system",
+                props: {
+                    onClick: () => {
+                        handleThemeUpdate("mode", "system");
+                    }
+                }
+            }
+        ])
+    }, [handleThemeUpdate, user?.settings?.theme?.mode])
 
     return (
         <div className="appearanceSettings">
 
-            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
+            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%', flexDirection: "row", gap: "0.25rem" }}>
                 <span style={{ minWidth: '78px' }}>Theme</span>
-                <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
-                    <div onClick={() => handleThemeUpdate("mode", "light")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'light' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                        Light
-                    </div>
-                    <div onClick={() => handleThemeUpdate("mode", "dark")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'dark' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                        Dark
-                    </div>
-                    <div onClick={() => handleThemeUpdate("mode", "system")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'system' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
-                        System
-                    </div>
-                </div>
+                <ButtonGroup items={items} />
 
             </div>
+
+
 
 
             <label>

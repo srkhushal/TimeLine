@@ -1,0 +1,70 @@
+:root {
+    color-scheme: light dark;
+    --white-main: rgb(253, 247, 255);
+    --black-main: rgb(10, 9, 10);
+    --bg: light-dark(var(--white-main), var(--black-main));
+    --btn-fill-accent-inactive: light-dark(rgb(196, 180, 248), rgb(100, 85, 146));
+    --btn-fill-accent-active: light-dark(rgb(100, 85, 146), rgb(196, 180, 248));
+}
+
+div.btn-grp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: min(400px, 100%);
+    flex-wrap: wrap;
+    gap: 0.125rem;
+}
+
+button.btn-grp-item {
+    font-size: 0.75rem;
+    background: var(--btn-fill-accent-inactive);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+    height: 2.5rem;
+    min-width: fit-content;
+    color: var(--font);
+    border: none;
+    border-radius: 0.65rem;
+    transition: all 250ms;
+
+    &:nth-child(1) {
+        border-top-left-radius: 10dvw;
+        border-top-right-radius: 0.65rem;
+        border-bottom-left-radius: 10dvw;
+        border-bottom-right-radius: 0.65rem;
+    }
+
+    &:last-of-type {
+        border-top-right-radius: 10dvw;
+        border-bottom-left-radius: 0.65rem;
+        border-bottom-right-radius: 10dvw;
+        border-top-left-radius: 0.65rem;
+    }
+}
+
+button.btn-grp-item.active {
+    border-radius: 10dvw;
+    background: var(--btn-fill-accent-active);
+    color: var(--bg);
+    animation: xwobble 350ms ease-in-out;
+    will-change: transform;
+}
+
+@keyframes xwobble {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    33% {
+        transform: scale3d(1.125, 1.125, 1.125);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
