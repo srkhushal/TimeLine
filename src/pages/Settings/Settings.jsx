@@ -274,9 +274,7 @@ const StorageSettings = () => {
     const showDeleteInput = () => {
         setShowInput(p => !p);
     }
-    useEffect(() => {
-        resetSettings();
-    }, [])
+
     return (
         <div className="storageSettings">
             <button className="reset-app"
