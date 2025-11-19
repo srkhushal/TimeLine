@@ -604,26 +604,12 @@ const EventModal = ({ item, setItem, handleDelete }) => {
         timeStyle: "short"
     });
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (emRef.current && !emRef.current.contains(event.target)) {
-                setItem(null);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        document.addEventListener("touchstart", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-            document.removeEventListener("touchstart", handleClickOutside);
-        };
-    }, [setItem]);
     if (!item) return null;
 
     return (
-        <div className="event-modal-backdrop">
-            <div ref={emRef} className="event-modal">
+        <div onClick={() => setItem(null)}
+            className="event-modal-backdrop">
+            <div ref={emRef} onClick={(e) => e.stopPropagation()} className="event-modal">
                 <div className="modal-header">
                     <h3>{label}</h3>
                 </div>
@@ -686,7 +672,7 @@ const ZeroEvents = ({ type = 'nodata', showAddEvent, setShowAddEvent }) => {
 
 
     return (
-        <div className="zero-events-wrapper">
+        <div className="zero-events-wrapper" >
             <div className="zero-events-image-container">
                 <img
                     src={randomImg}
