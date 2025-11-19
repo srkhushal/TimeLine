@@ -144,13 +144,43 @@ const AppearanceSettings = () => {
 
 const StorageSettings = () => {
     const { user, setUser } = useUser();
+    const [showInput, setShowInput] = useState(false);
+    const [confirmInput, setConfirmInput] = useState("");
+
     const resetApp = () => {
+        setShowInput(false);
         localStorage.clear();
         setUser(defaultUser);
     }
+    const showDeleteInput = () => {
+        setShowInput(p => !p);
+    }
     return (
         <div className="storageSettings">
-            <button className="reset-app" onClick={resetApp}>Reset App</button>
+            <button className="reset-app" onClick={showDeleteInput}>Reset App</button>
+            <div style={{ marginTop: '0.5rem', fontSize: "0.78rem", opacity: 0.75, display: "flex", justifyContent: "start", alignItems: 'center', gap: "4px" }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="calc(0.78rem)" height="calc(0.78rem)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
+                <span>Deletes all events and settings data.</span>
+            </div>
+
+            {
+                !showInput ? "" :
+                    <>
+                        <div style={{ marginTop: '1rem', fontSize: "0.78rem", opacity: 0.75, display: "flex", justifyContent: "start", alignItems: 'center', gap: "4px" }}>
+                            <span>type <strong>delete</strong> and hit enter/return to confirm</span>
+                        </div>
+                        <input onChange={(e) => {
+                            setConfirmInput(e.target.value)
+                        }}
+                            onKeyDown={(e) => {
+                                if (e.code === 'Enter') {
+                                    resetApp();
+                                    return;
+                                } return;
+                            }}
+                            type="text" name="confirm-deletion" id="confirm-deletion" />
+                    </>
+            }
         </div>
     )
 }

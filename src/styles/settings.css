@@ -102,11 +102,12 @@ button.reset-app {
     padding: 0.5rem 1rem;
     font-size: 0.78rem;
     font-family: var(--font);
-
     border-radius: 10dvw;
-    border: 1px solid rgb(128 128 128 /0.25);
-    color: var(--text);
+    border: none;
+    color: var(--bg);
     background: var(--subtle);
+    font-weight: bold;
+    background: light-dark(red, rgb(255, 82, 82));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,4 +115,25 @@ button.reset-app {
     &:hover {
         scale: 1.025;
     }
+}
+
+#confirm-deletion {
+    min-height: 40px;
+    border: 1.5px solid rgb(128 128 128 /0.25);
+    border-radius: 14px;
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    outline: none;
+    background: none;
+    font-size: 1rem;
+    font-family: var(--font);
+    margin-top: 0.5rem;
+    width: min(100%, 400px);
+
+    &:active,
+    &:focus {
+        border: 1.5px solid rgba(30, 143, 255, 0.696);
+        outline: 2px solid rgba(30, 143, 255, 0.25);
+    }
+
 }
