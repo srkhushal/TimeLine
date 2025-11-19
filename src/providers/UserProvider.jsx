@@ -4,6 +4,9 @@ import { filterColor } from "../utils/func/func";
 export const defaultUser = {
     settings: {
         hideCompleted: true,
+        theme: {
+            mode: "system",
+        },
         filter: {
             sepia: `0%`,
             brightness: `100%`
@@ -69,6 +72,18 @@ export const UserProvider = ({ children }) => {
         document.documentElement.style.fontSize = (font?.fontSize);
 
     }, [user?.settings?.font]);
+
+    useEffect(() => {
+        const theme = user?.settings?.theme;
+        if (!theme) return;
+        let varTheme = null;
+        if (theme?.mode === 'light') varTheme = "only light";
+        else if (theme?.mode === 'dark') varTheme = "only dark";
+        else if (theme?.mode === 'system') varTheme = "light dark";
+
+        document.documentElement.style.colorScheme = varTheme;
+
+    }, [user?.settings?.theme]);
 
 
 

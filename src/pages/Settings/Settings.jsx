@@ -51,9 +51,38 @@ const AppearanceSettings = () => {
             }
         }));
     }
+    const handleThemeUpdate = (key, val) => {
+        setUser((p) => ({
+            ...p,
+            settings: {
+                ...(p?.settings || {}),
+                theme: {
+                    ...(p?.settings?.theme || {}),
+                    [key]: val
+                }
+            }
+        }));
+    }
 
     return (
         <div className="appearanceSettings">
+
+            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
+                <span style={{ minWidth: '78px' }}>Theme</span>
+                <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
+                    <div onClick={() => handleThemeUpdate("mode", "light")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'light' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Light
+                    </div>
+                    <div onClick={() => handleThemeUpdate("mode", "dark")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'dark' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Dark
+                    </div>
+                    <div onClick={() => handleThemeUpdate("mode", "system")} className="font-block" style={{ fontFamily: "var(--font)", border: user?.settings?.theme?.mode === 'system' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        System
+                    </div>
+                </div>
+
+            </div>
+
 
             <label>
                 <span>Sepia</span>
