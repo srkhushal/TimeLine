@@ -173,6 +173,6 @@ button.reset-app {
     background: none !important;
     border: none !important;
     font-family: var(--font);
-    font-size: 0.625rem !important;
+    font-size: max(11px, 0.5rem) !important;
     text-decoration: underline !important;
 }
