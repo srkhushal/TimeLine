@@ -714,11 +714,11 @@ const ZeroEvents = ({ type = 'nodata', showAddEvent, setShowAddEvent }) => {
                 />
             </div>
             {
-                type === 'nodata' ? <div className="no-events-message" style={{ gap: '0.125rem' }}>
+                type === 'nodata' ? <div className="no-events-message" style={{ gap: '0.125rem', marginTop: '1.5rem' }}>
                     <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>Looks like you haven't added any events yet.</span>
                     <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>{""}Add your first event and stay organized.</span>
                 </div>
-                    : <div className="no-events-message" style={{ gap: '0.125rem' }}>
+                    : <div className="no-events-message" style={{ gap: '0.125rem', marginTop: '1.5rem' }}>
 
                         <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>Nothing here :( </span>
                         <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>{""}No event found with this name.</span>
