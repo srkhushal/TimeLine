@@ -1,4 +1,4 @@
-export default function Switch({ isChecked }) {
+export function Switch({ isChecked }) {
     return (
         <div
             className="checkbox-container"

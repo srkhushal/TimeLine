@@ -1,16 +1,9 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDevice, useUser } from "../../providers";
-
-import zs1 from "../../assets/images/zerostate1.avif";
-import zs2 from "../../assets/images/zerostate2.avif";
-import zs3 from "../../assets/images/zerostate3.avif";
-import zs4 from "../../assets/images/zerostate4.avif";
-import zs5 from "../../assets/images/zerostate5.avif";
-import zs6 from "../../assets/images/zerostate6.avif";
-import arrow from "../../assets/images/arrow.svg";
-import Switch from "../../components/Switch.jsx";
 import { useNavigate } from "react-router-dom";
-import { useSystemDark } from "../../utils/hooks/theme/useSystemDark"
+import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents } from "../../components/index.jsx";
+import { minimalText } from "../../utils/strings/strings";
+
 export function Home() {
     const [showAddEvent, setShowAddEvent] = useState(false);
     return (
@@ -40,6 +33,7 @@ const Menu = ({ itemsHandlerArray = [] }) => {
         </nav>
     )
 }
+
 
 const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
     const [time, setTime] = useState(new Date());
@@ -156,6 +150,7 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
     );
 });
 
+
 const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
     const { user, setUser } = useUser();
     const [inputs, setInputs] = useState({
@@ -271,13 +266,6 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
 })
 
 
-
-
-
-
-const minimalText = (str, strLength = 30) => {
-    return `${str}`.length > strLength ? `${str}`.substring(0, strLength - 3) + '...' : str;
-}
 const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
     const { user, setUser } = useUser();
     const { device } = useDevice();
@@ -618,222 +606,4 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
     );
 });
 
-const EventModal = ({ item, setItem, handleDelete }) => {
-    const emRef = useRef(null);
-
-
-    const id = item?.id;
-    const label = item?.label || '';
-    const note = item?.note || '';
-    const endsOn = item?.endsOn || 'Invalid Date';
-    const autoDelete = item?.autoDelete;
-    const tag = item?.tag || '';
-    const status = item?.status || '';
-    const remainingTime = item?.remainingTime;
-
-
-    const formattedDate = new Date(endsOn).toLocaleString([], {
-        dateStyle: "medium",
-        timeStyle: "short"
-    });
-
-    if (!item) return null;
-
-    return (
-        <div onClick={() => setItem(null)}
-            className="event-modal-backdrop">
-            <div ref={emRef} onClick={(e) => e.stopPropagation()} className="event-modal">
-                <div className="modal-header">
-                    <h3>{label}</h3>
-                </div>
-
-                <div className="modal-meta">
-                    <span className={status === "completed" ? "completed" : "upcoming"}>
-                        {status === "completed" ? "Completed" : "Upcoming"}
-                    </span>
-
-                    {autoDelete && (
-                        <span className="auto-delete-badge">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M12 2a10 10 0 0 1 7.38 16.75" /><path d="M12 6v6l4 2" /><path d="M2.5 8.875a10 10 0 0 0-.5 3" /><path d="M2.83 16a10 10 0 0 0 2.43 3.4" /><path d="M4.636 5.235a10 10 0 0 1 .891-.857" /><path d="M8.644 21.42a10 10 0 0 0 7.631-.38" /></svg>
-                            Auto Delete
-                        </span>
-                    )}
-                </div>
-
-                <div className="modal-body">
-
-                    <div className="modal-section">
-                        <h4>Ends On</h4>
-                        <p>{formattedDate}</p>
-                    </div>
-
-                    <div className="modal-section">
-                        <h4>Remaining</h4>
-                        <p>{remainingTime || "Expired"}</p>
-                    </div>
-
-                    {note && (
-                        <div className="modal-section">
-                            <h4>Note</h4>
-                            <p style={{ whiteSpace: "pre-wrap" }}>{note}</p>
-                        </div>
-                    )}
-                    <div className="modal-footer">
-                        <button onClick={() => {
-                            handleDelete(id);
-                            setItem(null);
-                        }} className="modal-delete">Delete</button>
-                        <button onClick={() => setItem(null)} className="modal-close">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-
-// type-> nodata or noresult
-const ZeroEvents = ({ type = 'nodata', showAddEvent, setShowAddEvent }) => {
-    const allImages = useMemo(() => {
-        return [zs1, zs2, zs3, zs4, zs5, zs6];
-    }, []);
-
-    const [randomImg, setRandomImg] = useState(() => {
-        const rnIdx = Math.floor(allImages.length * Math.random());
-        return type === 'noresult' ? allImages[3] : allImages[rnIdx];
-    });
-    const { user } = useUser();
-
-    const systemDark = useSystemDark();
-
-    const isDark =
-        user?.settings?.theme?.mode === "dark" ||
-        (user?.settings?.theme?.mode === "system" && systemDark);
-    return (
-        <div className="zero-events-wrapper" >
-            <div className="zero-events-image-container">
-                <img
-                    style={{
-                        filter: isDark ? "invert(1)" : "unset",
-                    }}
-                    src={randomImg}
-                    className="zero-state-image"
-                    alt="No events illustration"
-                />
-            </div>
-            {
-                type === 'nodata' ? <div className="no-events-message" style={{ gap: '0.125rem', marginTop: '1.5rem' }}>
-                    <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>Looks like you haven't added any events yet.</span>
-                    <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>{""}Add your first event and stay organized.</span>
-                </div>
-                    : <div className="no-events-message" style={{ gap: '0.125rem', marginTop: '1.5rem' }}>
-
-                        <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>Nothing here :( </span>
-                        <span style={{ opacity: 0.95, fontSize: '0.72rem', fontStyle: '' }}>{""}No event found with this name.</span>
-                    </div>
-            }
-
-            {((type === 'nodata') && !showAddEvent) ? <div className="arrowImageWrapper">
-                <img src={arrow} className="arrowImage" />
-            </div> : ""}
-        </div>
-    );
-};
-
-const commonStyle = {
-    all: "unset",
-    minWidth: "41px",
-    minHeight: "41px",
-    userSelect: "none",
-    border: "1.5px solid rgb(128 128 128 /0.25)",
-    background:
-        "light-dark( rgba(128,128,128,0.125),rgba(128,128,128,0.25) )",
-    width: "32px",
-    height: "32px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "14px",
-    cursor: "pointer",
-    boxShadow: "box-shadow: 1px 1px 5px rgb(128 128 128 /0.125)"
-};
-
-const SortIcon = ({ dir = "asc", onClick, mode = "label" }) => {
-    const [clicked, setClicked] = useState(false);
-    if (mode === "endsOn") {
-        return (
-            <span onClick={() => {
-                onClick();
-                setClicked(true);
-            }} style={{ ...commonStyle, backgroundColor: clicked ? "var(--text)" : "var(--bg)", color: !clicked ? "var(--text)" : "var(--bg)" }}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                >
-                    {dir === "asc" ? (
-                        <path d="m14 18 4 4 4-4" />
-                    ) : (
-                        <path d="m14 18 4-4 4 4" />
-                    )}
-                    <path d="M16 2v4" />
-                    <path d="M18 14v8" />
-                    <path d="M21 11.354V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.343" />
-                    <path d="M3 10h18" />
-                    <path d="M8 2v4" />
-                </svg>
-            </span>
-        );
-    }
-};
-
-const ViewIcon = ({ mode = "grid", onClick }) => {
-
-
-    return mode === "grid" ? (
-        <span onClick={onClick} style={{ ...commonStyle, backgroundColor: "var(--text)", color: "var(--bg)" }}>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            >
-                <rect width="18" height="7" x="3" y="3" rx="1" />
-                <rect width="7" height="7" x="3" y="14" rx="1" />
-                <rect width="7" height="7" x="14" y="14" rx="1" />
-            </svg>
-        </span>
-    ) : (
-        <span onClick={onClick} style={{ ...commonStyle, backgroundColor: "var(--text)", color: "var(--bg)" }}>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            >
-                <rect width="18" height="18" x="3" y="3" rx="2" />
-                <path d="M21 9H3" />
-                <path d="M21 15H3" />
-            </svg>
-        </span>
-    );
-};
 

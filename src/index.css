@@ -61,3 +61,13 @@ main {
   max-width: 1250px;
   padding-bottom: 5.5rem;
 }
+
+button {
+  user-select: none !important;
+
+  *,
+  *::after,
+  *::before {
+    user-select: none !important;
+  }
+}
