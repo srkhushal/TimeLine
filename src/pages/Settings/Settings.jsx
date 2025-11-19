@@ -8,6 +8,7 @@ export function Settings() {
         <div className="settingsPage">
             <h1 onClick={() => window.location.reload()}>Settings</h1>
             <AppearanceSettings />
+            <ShareSettings />
             <StorageSettings />
         </div>
     )
@@ -66,7 +67,6 @@ const AppearanceSettings = () => {
 
     return (
         <div className="appearanceSettings">
-
 
             <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
                 <span style={{ minWidth: '78px' }}>Theme</span>
@@ -154,6 +154,86 @@ const AppearanceSettings = () => {
 };
 
 
+
+function exportData() {
+    try {
+        const appRaw = localStorage.getItem("app") || "{}";
+        const app = JSON.parse(appRaw);
+
+        const jsonString = JSON.stringify(app, null, 2);
+        const file = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(file);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "app-data.json";
+        document.body.appendChild(a);
+        a.click();
+
+        // Cleanup
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+    } catch (e) {
+        console.error("Error exporting data:", e);
+    }
+}
+
+function importData(setUser) {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "application/json";
+
+    input.onchange = () => {
+        const file = input.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const json = e.target?.result;
+                const APP = JSON.parse(json);
+                setUser(APP);
+
+            } catch (err) {
+                console.error("Invalid JSON file:", err);
+            }
+        };
+
+        reader.readAsText(file);
+    };
+
+    input.click();
+}
+
+const ShareSettings = () => {
+    const { user, setUser } = useUser();
+
+    return (
+        <div className="shareSettings">
+            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
+                <span style={{ minWidth: '78px' }}>Share</span>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
+
+                    {/* pass setUser into importData */}
+                    <button onClick={() => importData(setUser)} className="importSettings">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="calc(0.75rem)" height="calc(0.75rem)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-up-icon lucide-file-up"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M12 12v6" /><path d="m15 15-3-3-3 3" /></svg>
+                        Import Data
+                    </button>
+
+                    <button onClick={exportData} className="exportSettings">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="calc(0.75rem)" height="calc(0.75rem)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-down-icon lucide-file-down"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M12 18v-6" /><path d="m9 15 3 3 3-3" /></svg>
+                        Export Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+
 const StorageSettings = () => {
     const { user, setUser } = useUser();
     const [showInput, setShowInput] = useState(false);
@@ -191,8 +271,8 @@ const StorageSettings = () => {
             >
                 {showInput ? "Cancel" : "Reset App"}
             </button>
-            <div style={{ marginTop: '0.5rem', fontSize: "0.78rem", opacity: 0.75, display: "flex", justifyContent: "start", alignItems: 'start', gap: "8px" }}>
-                <svg style={{ marginTop: '4px' }} xmlns="http://www.w3.org/2000/svg" width="calc(0.78rem)" height="calc(0.78rem)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
+            <div style={{ marginTop: '0.5rem', fontSize: "0.72rem", opacity: 0.75, display: "flex", justifyContent: "start", alignItems: 'start', gap: "8px" }}>
+                <svg style={{ marginTop: '4px' }} xmlns="http://www.w3.org/2000/svg" width="calc(0.72rem)" height="calc(0.72rem)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
                 <span>Deletes all events and settings data after confirmation.</span>
             </div>
 

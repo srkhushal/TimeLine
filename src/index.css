@@ -10,7 +10,7 @@
   --text: light-dark(#212121, #fafafa);
   --accent: light-dark(black, white);
   --subtle: light-dark(white, rgb(14 14 14));
-  --font: "Google Sans Code"
+  --font: "Google Sans Code";
 }
 
 @media (max-width:40em) {
