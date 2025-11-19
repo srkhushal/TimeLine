@@ -44,6 +44,7 @@ const AppearanceSettings = () => {
             settings: {
                 ...(p?.settings || {}),
                 font: {
+                    ...(p?.settings?.font || {}),
                     [key]: val
                 }
             }

@@ -492,7 +492,7 @@ body:has(div.event-modal) {
 
 .profile-menu {
     position: absolute;
-    top: 48px;
+    top: 3rem;
     right: 0;
     border: 1px solid rgb(128 128 128 /0.25);
     padding: 4px;
