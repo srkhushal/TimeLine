@@ -1,4 +1,4 @@
-@import url(./styles/fonts.css);
+/* @import url(./styles/fonts.css); */
 @import url(./styles/form.css);
 @import url(./styles/home.css);
 @import url(./styles/settings.css);
@@ -10,7 +10,7 @@
   --text: light-dark(#212121, #fafafa);
   --accent: light-dark(black, white);
   --subtle: light-dark(white, rgb(14 14 14));
-  --font: GoogleSansCode, monospace
+  --font: "Google Sans Code"
 }
 
 @media (max-width:40em) {

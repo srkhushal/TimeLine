@@ -31,8 +31,9 @@ const AppearanceSettings = () => {
     const handleFontUpdate = (key, val) => {
         if (key === 'fontFamily') {
             let varFont = null;
-            if (val === 'GoogleSansCode') varFont = "GoogleSansCode, monospace";
-            else if (val === 'Inter') varFont = "Inter, system-ui";
+            if (val === 'Google Sans Code') varFont = "Google Sans Code, monospace";
+            if (val === 'Google Sans Flex') varFont = "Google Sans Flex, system-ui";
+            else if (val === 'Open Sans') varFont = "Open Sans, system-ui";
             document.documentElement.style.setProperty('--font', varFont);
         }
         else if (key === 'fontSize') {
@@ -88,11 +89,14 @@ const AppearanceSettings = () => {
             <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
                 <span style={{ minWidth: '78px' }}>Font</span>
                 <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
-                    <div onClick={() => handleFontUpdate("fontFamily", "GoogleSansCode")} className="font-block" style={{ fontFamily: "GoogleSansCode", border: user?.settings?.font?.fontFamily === 'GoogleSansCode' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                    <div onClick={() => handleFontUpdate("fontFamily", "Google Sans Code")} className="font-block" style={{ fontFamily: "Google Sans Code", border: user?.settings?.font?.fontFamily === 'Google Sans Code' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
                         Monospace
                     </div>
-                    <div onClick={() => handleFontUpdate("fontFamily", "Inter")} className="font-block" style={{ fontFamily: "Inter", border: user?.settings?.font?.fontFamily === 'Inter' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                    <div onClick={() => handleFontUpdate("fontFamily", "Google Sans Flex")} className="font-block" style={{ fontFamily: "Google Sans Flex", border: user?.settings?.font?.fontFamily === "Google Sans Flex" ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
                         Sans-Serif
+                    </div>
+                    <div onClick={() => handleFontUpdate("fontFamily", "Open Sans")} className="font-block" style={{ fontFamily: "Open Sans", border: user?.settings?.font?.fontFamily === 'Open Sans' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                        Open Sans
                     </div>
                 </div>
 
@@ -101,13 +105,13 @@ const AppearanceSettings = () => {
             <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
                 <span style={{ minWidth: '78px' }}>Font Size</span>
                 <div className="font-styles-wrapper" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
-                    <div onClick={() => handleFontUpdate("fontSize", "80%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "80%", border: user?.settings?.font?.fontSize === '80%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                    <div onClick={() => handleFontUpdate("fontSize", "80%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "60%", border: user?.settings?.font?.fontSize === '80%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
                         Aa
                     </div>
-                    <div onClick={() => handleFontUpdate("fontSize", "100%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "100%", border: user?.settings?.font?.fontSize === '100%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                    <div onClick={() => handleFontUpdate("fontSize", "100%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "90%", border: user?.settings?.font?.fontSize === '100%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
                         Aa
                     </div>
-                    <div onClick={() => handleFontUpdate("fontSize", "120%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "120%", border: user?.settings?.font?.fontSize === '120%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                    <div onClick={() => handleFontUpdate("fontSize", "140%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "120%", border: user?.settings?.font?.fontSize === '140%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
                         Aa
                     </div>
                 </div>
@@ -116,9 +120,19 @@ const AppearanceSettings = () => {
 
             <div className="sample-text" >
                 <span>
-                    The quick brown fox jumps over the lazy dog.
+                    <span style={{ wordBreak: 'break-all', maxWidth: '50ch' }}>
+                        Seven six eleven five nine-an'-twenty mile to-day
+                        <br />
+                        Four eleven seventeen thirty-two the day before
+                        <br />
+                        (Boots boots boots boots movin' up and down again!)
+                        <br />
+                        There's no discharge in the war!
+                    </span>
                     <br />
-                    0123456789
+                    <span>
+                        0123456789
+                    </span>
                 </span>
                 <img src={test} style={{ width: "min(100%,150px)", height: "min(100%,150px)", aspectRatio: 1, objectFit: "cover" }} />
             </div>

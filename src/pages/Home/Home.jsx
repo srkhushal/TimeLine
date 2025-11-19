@@ -515,7 +515,7 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
                 </div>
             </div>
             <div className="events-list-meta" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center' }}>
-                <span style={{ marginTop: '4px', fontSize: '0.61rem', opacity: 0.75, marginLeft: '6px', fontFamily: "monospace" }}>{filteredEvents.upcoming.length} Upcoming Event{filteredEvents.upcoming.length > 1 ? "s" : ""}, {filteredEvents.completed.length} Completed</span>
+                <span style={{ marginTop: '4px', fontSize: '0.61rem', opacity: 0.75, marginLeft: '6px' }}>{filteredEvents.upcoming.length} Upcoming Event{filteredEvents.upcoming.length > 1 ? "s" : ""}, {filteredEvents.completed.length} Completed</span>
                 {
                     !filteredEvents.completed.length ? '' :
                         <span onClick={() => {
@@ -526,7 +526,7 @@ const EventList = memo(({ showAddEvent, setShowAddEvent }) => {
                                     hideCompleted: !p?.settings?.hideCompleted
                                 }
                             }))
-                        }} style={{ userSelect: "none", marginTop: '4px', fontSize: '0.61rem', opacity: 1, marginLeft: '6px', fontFamily: "monospace", cursor: "pointer" }}>
+                        }} style={{ userSelect: "none", marginTop: '4px', fontSize: '0.61rem', opacity: 1, marginLeft: '6px', cursor: "pointer" }}>
                             [{hideCompleted ? "Unhide" : "Hide"} Completed]
                         </span>
                 }

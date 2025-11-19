@@ -9,7 +9,8 @@ export const defaultUser = {
             brightness: `100%`
         },
         font: {
-            fontFamily: "GoogleSansCode"
+            fontFamily: "Google Sans Code",
+            fontSize: "100%"
         }
     },
     data: {
@@ -60,8 +61,9 @@ export const UserProvider = ({ children }) => {
         const font = user?.settings?.font;
         if (!font) return;
         let varFont = null;
-        if (font?.fontFamily === 'GoogleSansCode') varFont = "GoogleSansCode, monospace";
-        else if (font?.fontFamily === 'Inter') varFont = "Inter, system-ui";
+        if (font?.fontFamily === 'Google Sans Code') varFont = "Google Sans Code, monospace";
+        else if (font?.fontFamily === 'Open Sans') varFont = "Open Sans, system-ui";
+        else if (font?.fontFamily === 'Google Sans Flex') varFont = "Google Sans Flex, system-ui";
 
         document.documentElement.style.setProperty('--font', varFont);
         document.documentElement.style.fontSize = (font?.fontSize);
