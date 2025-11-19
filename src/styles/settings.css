@@ -170,6 +170,7 @@ button.reset-app {
     display: flex;
     align-items: center;
     gap: 4px;
+    width: fit-content;
     background: none !important;
     border: none !important;
     font-family: var(--font);

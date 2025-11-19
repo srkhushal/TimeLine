@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { defaultUser, useUser } from "../../providers/UserProvider";
 
@@ -227,7 +227,7 @@ const ShareSettings = () => {
             <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', width: '100%' }}>
                 <span style={{ minWidth: '78px' }}>Share</span>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: 'min(300px, 100%)', flexWrap: 'wrap', gap: 0 }}>
 
                     {/* pass setUser into importData */}
                     <button onClick={() => importData(setUser)} className="importSettings">
@@ -274,6 +274,9 @@ const StorageSettings = () => {
     const showDeleteInput = () => {
         setShowInput(p => !p);
     }
+    useEffect(() => {
+        resetSettings();
+    }, [])
     return (
         <div className="storageSettings">
             <button className="reset-app"

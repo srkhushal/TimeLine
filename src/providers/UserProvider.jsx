@@ -12,8 +12,8 @@ export const defaultUser = {
             brightness: `100%`
         },
         font: {
-            fontFamily: "Google Sans Code",
-            fontSize: "100%"
+            fontFamily: "Google Sans Flex",
+            fontSize: "130%"
         }
     },
     data: {
