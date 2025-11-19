@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
 import { defaultUser, useUser } from "../../providers/UserProvider";
 import test from "../../assets/images/test.avif";
+import { useNavigate } from "react-router-dom";
 
 export function Settings() {
     const [showAddEvent, setShowAddEvent] = useState(false);
+    const nav = useNavigate();
     return (
         <div className="settingsPage">
-            <h1 onClick={() => window.location.reload()}>Settings</h1>
+            <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'baseline' }}>
+                <h1 onClick={() => window.location.reload()}>Settings</h1>
+                <span style={{ fontSize: '0.5rem', display: "flex", cursor: "pointer", alignItems: "center", gap: '4px' }}>
+                    <span onClick={() => {
+                        nav("/")
+                    }} style={{ opacity: 0.75, textDecoration: 'underline' }}>
+                        Home
+                    </span>
+
+                </span>
+            </div>
             <AppearanceSettings />
             <ShareSettings />
             <StorageSettings />
