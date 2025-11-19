@@ -111,7 +111,7 @@ const AppearanceSettings = () => {
                     <div onClick={() => handleFontUpdate("fontSize", "100%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "90%", border: user?.settings?.font?.fontSize === '100%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
                         Aa
                     </div>
-                    <div onClick={() => handleFontUpdate("fontSize", "140%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "120%", border: user?.settings?.font?.fontSize === '140%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
+                    <div onClick={() => handleFontUpdate("fontSize", "130%")} className="font-block" style={{ fontFamily: "var(--font)", fontSize: "120%", border: user?.settings?.font?.fontSize === '130%' ? "1px solid rgb( 128 128 128 /0.25 )" : "1px solid transparent" }}>
                         Aa
                     </div>
                 </div>
