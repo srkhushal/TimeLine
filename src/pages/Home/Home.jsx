@@ -92,7 +92,7 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
         <div style={{ display: "flex", flexWrap: 'wrap', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
             {
                 device?.type?.isMobile ? <div style={{ display: "flex", width: '100%', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h1 style={{ fontSize: 'max(100%, 36px)' }} onClick={() => window.location.reload()}>{greeting}</h1>
+                    <h1 style={{ fontSize: 'max(100%, 34px)' }} onClick={() => window.location.reload()}>{greeting}</h1>
                     <div ref={menuRef} className="profile-menu-trigger" >
                         <div onClick={() => {
                             setShowMenu(p => !p);
