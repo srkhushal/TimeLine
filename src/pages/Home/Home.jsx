@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDevice, useUser } from "../../providers";
 import { useNavigate } from "react-router-dom";
-import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents } from "../../components/index.jsx";
+import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents, Menu } from "../../components/index.jsx";
 import { minimalText } from "../../utils/strings/strings";
 
 export function Home() {
@@ -15,24 +15,6 @@ export function Home() {
     )
 }
 
-const Menu = ({ itemsHandlerArray = [] }) => {
-    if (!itemsHandlerArray.length) return;
-    return (
-        <nav className="profile-menu">
-            <ul>
-                {
-                    itemsHandlerArray.map((item, i) => {
-                        return (
-                            <li key={i} onClick={() => item?.onClick?.()}>
-                                {item?.label}
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-        </nav>
-    )
-}
 
 
 const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
