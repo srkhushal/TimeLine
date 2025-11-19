@@ -116,7 +116,7 @@ input[name="event-search"] {
     /* margin-bottom: 16px; */
     padding: 16px;
     border: 1px solid;
-    border-color: light-dark(#ddd, #333);
+    border-color: light-dark(#ddd, #33333361);
     /* border-color: light-dark(rgba(30, 143, 255, 0.85), rgba(30, 143, 255, 0.31)); */
     cursor: pointer;
     border-radius: 14px;
@@ -124,6 +124,8 @@ input[name="event-search"] {
     justify-content: space-between;
     position: relative;
     gap: 1rem;
+    background: light-dark(rgb(252, 252, 255), rgb(4, 4, 14));
+
 }
 
 .event-card-coloredBorder {
@@ -131,6 +133,8 @@ input[name="event-search"] {
     border-width: 1px;
     /* border-style: dashed; */
     /* box-shadow: 1px 1px 5px rgba(30, 151, 0, 0.185); */
+    background: light-dark(rgb(252, 255, 252), rgb(4, 14, 4));
+
 }
 
 .event-label {
