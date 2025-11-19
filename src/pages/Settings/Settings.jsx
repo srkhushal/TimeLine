@@ -74,8 +74,8 @@ const AppearanceSettings = () => {
                 <input
                     style={{ width: 'min(300px, 100%)' }}
                     type="range"
-                    name="sepia-val"
-                    id="sepia-val"
+                    name="brightness-val"
+                    id="brightness-val"
                     min={25}
                     max={100}
                     value={parseInt(user?.settings?.filter?.brightness ?? 0)}
