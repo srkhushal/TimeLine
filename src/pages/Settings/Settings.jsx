@@ -169,7 +169,14 @@ const StorageSettings = () => {
     }
     return (
         <div className="storageSettings">
-            <button className="reset-app" onClick={showDeleteInput}>Reset App</button>
+            <button className="reset-app"
+                onClick={showDeleteInput}
+                style={{
+                    background: showInput ? "var(--text)" : "light-dark(red, rgb(255, 82, 82))",
+                }}
+            >
+                {showInput ? "Cancel" : "Reset App"}
+            </button>
             <div style={{ marginTop: '0.5rem', fontSize: "0.78rem", opacity: 0.75, display: "flex", justifyContent: "start", alignItems: 'start', gap: "8px" }}>
                 <svg style={{ marginTop: '4px' }} xmlns="http://www.w3.org/2000/svg" width="calc(0.78rem)" height="calc(0.78rem)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>
                 <span>Deletes all events and settings data.</span>
