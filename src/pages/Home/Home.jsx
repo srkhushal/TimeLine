@@ -192,6 +192,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
     return (
         <div>
             <Fab state={{ set: setShowAddEvent, get: showAddEvent }} onlyIcon icon={<AddIcon style={{ transition: "transform 150ms ease-in-out", transform: `rotate(${showAddEvent ? "45deg" : "0deg"})`, width: "1.25rem", height: "1.25rem", strokeWidth: "1.5px" }} mode="plain" />} />
+
             {
                 !showAddEvent ? '' :
                     <form onSubmit={handleSubmit} className="addNewEvent">

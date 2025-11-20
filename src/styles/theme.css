@@ -3,6 +3,7 @@
     --font: "Google Sans Code";
     --header-zindex: 20;
     --fab-zindex: 20;
+    --backdrop-zindex: 10;
 }
 
 @media (max-width:40em) {
@@ -296,20 +297,10 @@ div.input-box-wrapper {
     background: var(--btn-fill-accent-inactive);
     width: min(400px, 100%);
     height: 2.5rem;
-    border-radius: 10dvw;
+    border-radius: 0.35rem;
     display: flex;
     align-items: center;
     position: relative;
-    z-index: 0;
-
-    &::before {
-        position: absolute;
-        z-index: 1;
-        inset: 0;
-        background: var(--bg);
-        opacity: 0.65;
-        content: '';
-    }
 }
 
 div.input-icon,
@@ -337,14 +328,14 @@ div.input-reset-icon {
     min-height: 1.125rem;
     max-height: 1.125rem;
     max-width: 1.125rem;
-    background: var(--bg);
+    background: var(--btn-fill-accent-active);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 
     svg {
-        color: var(--btn-fill-accent-active);
+        color: var(--btn-fill-accent-inactive);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -369,6 +360,7 @@ input.input-box-text {
     position: relative;
     z-index: 2;
     border: 1px solid var(--btn-fill-accent-inactive);
+    color: var(--btn-fill-accent-active);
 
     &::placeholder {
         font-size: 0.75rem;

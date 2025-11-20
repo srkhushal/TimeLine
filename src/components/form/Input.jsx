@@ -15,11 +15,12 @@ export function InputBox({ startIcon, state, inputProps, wrapperProps }) {
 
     const showDeleteIcon = Boolean(state?.get);
     const inputBorderRadius = useMemo(() => {
-        if (startIcon && showDeleteIcon) return "0 10dvw 10dvw 0";
-        else if (startIcon && !showDeleteIcon) return "0 10dvw 10dvw 0";
-        else if (!startIcon && showDeleteIcon) return "10dvw 10dvw 10dvw 10dvw";
-        else return "10dvw 10dvw 10dvw 10dvw";
-    }, [startIcon, showDeleteIcon])
+        const br = wrapperProps?.style?.borderRadius || "0.35rem";
+        if (startIcon && showDeleteIcon) return `0 ${br} ${br} 0`;
+        else if (startIcon && !showDeleteIcon) return `0 ${br} ${br} 0`;
+        else if (!startIcon && showDeleteIcon) return `${br} ${br} ${br} ${br}`;
+        else return `${br} ${br} ${br} ${br}`;
+    }, [startIcon, showDeleteIcon, wrapperProps?.style?.borderRadius])
     return (
         <div onClick={handleActivateInput} className="input-box-wrapper" {...wrapperProps}>
             {startIcon && (
@@ -46,4 +47,14 @@ export function InputBox({ startIcon, state, inputProps, wrapperProps }) {
             </div>}
         </div>
     );
+}
+
+
+export function TimeInput({ label }) {
+    return (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>{label}</span>
+            00:00
+        </div>
+    )
 }

@@ -14,10 +14,10 @@
         &::before {
             inset: 0;
             content: '';
-            background: light-dark(rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0.75));
+            background: var(--bg-for-blur);
             position: absolute;
-            backdrop-filter: blur(2px);
-            z-index: 10;
+            /* backdrop-filter: blur(1px); */
+            z-index: var(--backdrop-zindex);
         }
     }
 }
@@ -31,7 +31,7 @@ form.addNewEvent {
     border: 1px solid rgb(128 128 128 /0.25);
     width: min(400px, 92dvw);
     padding: 1rem;
-    border-radius: 14px;
+    border-radius: 0.65rem;
     position: fixed;
     bottom: 6rem;
     z-index: 11;
@@ -62,7 +62,7 @@ input {
     align-items: stretch;
     justify-content: stretch;
     border: 1.5px solid rgb(128 128 128 /0.25);
-    border-radius: 14px;
+    border-radius: 0.25em;
     transition: all 50ms;
     position: relative;
     z-index: -1;

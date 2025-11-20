@@ -8,7 +8,7 @@ export const defaultUser = {
         theme: {
             mode: "system",       // system | light | dark
             ui: "monochrome",     // monochrome | dynamic
-            accent: "purple" // ui-dynamic ? { purple | blue | green } : ui-monochrome ? { gray }
+            accent: "gray" // ui-dynamic ? { purple | blue | green } : ui-monochrome ? { gray }
         },
         filter: {
             sepia: `0%`,
