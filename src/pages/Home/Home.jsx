@@ -1,9 +1,9 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDevice, useUser } from "../../providers";
 import { useNavigate } from "react-router-dom";
-import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents, Menu, Avatar } from "../../components/index.jsx";
+import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents, Menu, Avatar, Fab } from "../../components/index.jsx";
 import { minimalText } from "../../utils/strings/strings";
-import { GithubIcon, SettingsIcon } from "../../components/icons/Icons.jsx";
+import { AddIcon, GithubIcon, SettingsIcon, XIcon } from "../../components/icons/Icons.jsx";
 
 export function Home() {
     const [showAddEvent, setShowAddEvent] = useState(false);
@@ -62,7 +62,11 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
     const itemsHandlerArray = useMemo(() => {
         return [
             { label: "Settings", icon: <SettingsIcon />, onClick: () => nav("/settings") },
-            { label: "Open Source", icon: <GithubIcon />, onClick: () => nav("/settings") },
+            {
+                label: "Open Source", icon: <GithubIcon />, onClick: () => {
+                    window.open("https://github.com/srkhushal/TimeLine", "_blank", "noopener noreferrer")
+                }
+            },
         ]
     }, [nav])
 
@@ -187,15 +191,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
     }
     return (
         <div>
-            <button style={{
-                background: !showAddEvent ? "light-dark(black,white)" : "var(--accent)"
-            }} className="cta" onClick={() => setShowAddEvent(p => !p)}>
-                {
-                    showAddEvent
-                        ? <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                        : <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
-                }
-            </button>
+            <Fab state={{ set: setShowAddEvent, get: showAddEvent }} onlyIcon icon={<AddIcon style={{ transition: "transform 150ms ease-in-out", transform: `rotate(${showAddEvent ? "45deg" : "0deg"})`, width: "1.25rem", height: "1.25rem", strokeWidth: "1.5px" }} mode="plain" />} />
             {
                 !showAddEvent ? '' :
                     <form onSubmit={handleSubmit} className="addNewEvent">

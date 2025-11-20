@@ -2,6 +2,7 @@
     --offset: 2rem;
     --font: "Google Sans Code";
     --header-zindex: 20;
+    --fab-zindex: 20;
 }
 
 @media (max-width:40em) {
@@ -112,7 +113,7 @@ button.btn-grp-item.active {
     border-radius: 10dvw;
     background: var(--btn-fill-accent-active);
     color: var(--bg);
-    animation: xwobble 350ms ease-in-out;
+    animation: xwobble 350ms cubic-bezier(0.25, 0.8, 0.25, 1);
     will-change: transform;
 }
 
@@ -167,7 +168,7 @@ button.split-btn-icon.active-split {
     border-radius: 10dvw;
     background: var(--btn-fill-accent-active);
     color: var(--bg);
-    animation: xwobble 350ms ease-in-out;
+    animation: xwobble 350ms cubic-bezier(0.25, 0.8, 0.25, 1);
     will-change: transform;
 }
 
@@ -188,8 +189,44 @@ button.single-btn {
 }
 
 button.single-btn.active {
-    animation: xwobble 350ms ease-in-out;
+    animation: xwobble 350ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
+
+
+button.fab {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    border: none;
+    cursor: pointer;
+    z-index: var(--fab-zindex);
+    border-radius: 0.65rem;
+    color: var(--text);
+    background: var(--btn-fill-accent-inactive);
+    transition: all 350ms;
+    will-change: transform;
+}
+
+button.fab.active {
+    background: var(--btn-fill-accent-active);
+    color: var(--bg);
+    border-radius: 10dvw;
+    animation: xwobble 350ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+
+
+
+
+
+
 
 div.slider-track-path {
     width: min(400px, 100%);

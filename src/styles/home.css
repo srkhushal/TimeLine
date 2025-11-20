@@ -524,13 +524,17 @@ body:has(div.event-modal) {
             height: 2.5rem;
             transition: all 75ms;
             outline: none;
+            position: relative;
 
             &:hover,
             &:active,
             &:focus {
                 background: var(--btn-fill-accent-active);
                 color: var(--bg);
+
             }
+
+
 
 
             &:first-of-type {

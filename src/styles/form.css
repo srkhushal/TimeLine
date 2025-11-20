@@ -165,25 +165,6 @@ input.add-event {
     background: var(--text);
 }
 
-.cta {
-    position: fixed;
-    bottom: 2rem;
-    right: var(--offset);
-    width: 52px;
-    height: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--bg);
-    border: none;
-    border-radius: 50%;
-    z-index: 11;
-    cursor: pointer;
-
-    svg {
-        /* opacity: 0.75; */
-    }
-}
 
 .checkbox-container {
     width: 20px;

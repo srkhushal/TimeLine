@@ -360,3 +360,22 @@ export function GithubIcon() {
         </svg>
     )
 }
+
+// mode-> plain | cirlce
+export function AddIcon({ mode = 'plain', ...props }) {
+    if (mode === 'circle') {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" {...svgStyles} {...props}>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M8 12h8" />
+                <path d="M12 8v8" />
+            </svg>
+        )
+    }
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg"{...svgStyles} {...props}>
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+        </svg>
+    )
+}
