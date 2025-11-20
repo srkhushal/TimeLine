@@ -62,6 +62,7 @@
         display: flex;
         align-items: center;
         gap: 0.45rem;
+        user-select: none;
 
         svg {
             width: 0.85rem;
@@ -70,6 +71,16 @@
     }
 }
 
+.horizontalList {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    width: min(400px, 100%);
+
+    button {
+        flex: 1;
+    }
+}
 
 .shareSettings {
     display: flex;

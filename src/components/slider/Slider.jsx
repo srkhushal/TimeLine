@@ -49,9 +49,12 @@ export function Slider({ state, onChange = () => { } }) {
             onMouseDown={startDrag}
             onTouchStart={startDrag}
         >
-
             <div className="slider-track-filled" style={{ width: `${percent}%` }} />
-            <button className="slider-thumb" style={{ left: `${percent}%` }} />
+            <button className="slider-thumb" style={{ left: `${percent}%` }}>
+                <span className="slider-thumb-value">
+                    {Math.round(percent)}
+                </span>
+            </button>
         </div>
     );
 }

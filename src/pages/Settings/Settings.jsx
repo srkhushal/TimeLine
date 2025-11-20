@@ -1,10 +1,11 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { InputBox, Slider, SplitButton } from "../../components";
 import ButtonGroup from "../../components/button/ButtonGroup";
-import { AlertIcon, BackIcon, BrightnessIcon, DarkIcon, FontIcon, FontSizeIcon, HistoryIcon, InfoIcon, LightIcon, ResetIcon, SepiaIcon, SystemThemeIcon, ThemeIcon } from "../../components/icons/Icons";
+import { AccentIcon, AlertIcon, BackIcon, BrightnessIcon, DarkIcon, FontIcon, FontSizeIcon, HistoryIcon, LightIcon, SepiaIcon, SystemThemeIcon, ThemeIcon } from "../../components/icons/Icons";
 import { defaultUser, useUser } from "../../providers/UserProvider";
-import { Slider } from "../../components";
 import { exportData, importData } from "../../utils";
+import { capitalizeWord } from "../../utils/strings/strings";
 
 export function Settings() {
     const [showAddEvent, setShowAddEvent] = useState(false);
@@ -25,6 +26,12 @@ export function Settings() {
         </div>
     )
 }
+
+const availableColors = [
+    { label: "Purple" },
+    { label: "Green" },
+    { label: "Blue" },
+]
 
 const AppearanceSettings = () => {
     const { user, setUser } = useUser();
@@ -67,14 +74,14 @@ const AppearanceSettings = () => {
     }, [setUser])
 
     const handleThemeUpdate = useCallback((key, val) => {
-        console.log("handleThemeUpdate called");
         setUser((p) => ({
             ...p,
             settings: {
                 ...(p?.settings || {}),
                 theme: {
                     ...(p?.settings?.theme || {}),
-                    [key]: val
+                    [key]: val,
+                    ...(key === 'ui' ? { accent: '' } : {})
                 }
             }
         }));
@@ -111,6 +118,8 @@ const AppearanceSettings = () => {
             }
         ])
     }, [handleThemeUpdate, user?.settings?.theme?.mode])
+
+
 
     const fontStyleItems = useMemo(() => {
         return ([
@@ -182,6 +191,21 @@ const AppearanceSettings = () => {
         return parseInt(user?.settings?.filter?.brightness);
     });
 
+    const handleThemeUiUpdate = (val) => {
+        setUser((p) => ({
+            ...p,
+            settings: {
+                ...(p?.settings || {}),
+                theme: {
+                    ...(p?.settings?.theme || {}),
+                    ui: "dynamic",
+                    accent: val?.toLowerCase()
+                }
+            }
+        }))
+    }
+
+    const [accentClicked, setAccentClicked] = useState(false);
     return (
         <div className="appearanceSettings">
 
@@ -191,6 +215,61 @@ const AppearanceSettings = () => {
                     Theme
                 </span>
                 <ButtonGroup items={themeItems} />
+            </div>
+
+
+            <div className="settingsItem">
+                <span>
+                    <AccentIcon />
+                    Accent
+                </span>
+                <div style={{ display: 'flex', alignItems: 'center', width: 'min( 400px, 100% )', gap: '0.125rem' }}>
+                    <button
+                        style={{
+                            ...((user?.settings?.theme?.accent === 'gray') ? {
+                                background: "var(--btn-fill-accent-active)",
+                                color: "var(--bg)"
+                            } : { background: "var(--btn-fill-accent-inactive)" })
+                        }}
+                        onClick={() => {
+                            handleThemeUiUpdate("gray")
+                        }}
+                        className={`split-btn-item single-btn ${user?.settings?.theme?.accent === 'gray' ? "active" : ""}`}>
+                        {"Mono"}
+                    </button>
+
+                    <SplitButton
+                        isActive={(user?.settings?.theme?.ui === 'dynamic') && (user?.settings?.theme?.accent !== 'gray')}
+                        label={
+                            ((user?.settings?.theme?.ui === 'dynamic') && (user?.settings?.theme?.accent !== 'gray'))
+                                ? `Dynamic ${capitalizeWord(user?.settings?.theme?.accent)}`
+                                : `Dynamic`
+                        }
+                        state={{ set: setAccentClicked, get: accentClicked }} />
+
+                </div>
+                {
+                    !accentClicked ? '' :
+                        <div className="horizontalList">
+                            {
+                                availableColors.map((item, i) => (
+                                    <button onClick={() => {
+                                        handleThemeUiUpdate(item.label)
+                                    }} key={i}
+                                        className={`split-btn-item single-btn ${user?.settings?.theme?.accent === item?.label?.toLowerCase() ? "active" : ""}`}
+                                        style={{
+                                            ...((user?.settings?.theme?.accent === item?.label?.toLowerCase()) ? {
+                                                background: "var(--btn-fill-accent-active)",
+                                                color: "var(--bg)"
+                                            } : { background: "var(--btn-fill-accent-inactive)" })
+                                        }}
+                                    >
+                                        {item.label}
+                                    </button>
+                                ))
+                            }
+                        </div>
+                }
             </div>
 
             <div className="settingsItem">
@@ -285,12 +364,13 @@ const ShareSettings = () => {
 const StorageSettings = () => {
     const { user, setUser } = useUser();
     const [showInput, setShowInput] = useState(false);
-    const [confirmInput, setConfirmInput] = useState("");
+    const [inputText, setInputText] = useState("");
 
     const resetApp = () => {
         setShowInput(false);
         localStorage.clear();
         setUser(defaultUser);
+        setInputText("");
     }
     const resetSettings = () => {
         setShowInput(false);
@@ -298,6 +378,7 @@ const StorageSettings = () => {
             data: user?.data,
             settings: defaultUser?.settings
         });
+        setInputText("");
     }
     const resetData = () => {
         setShowInput(false);
@@ -305,10 +386,13 @@ const StorageSettings = () => {
             data: defaultUser?.data,
             settings: user?.settings
         });
+        setInputText("");
     }
 
 
-
+    useEffect(() => {
+        console.log({ inputText })
+    }, [inputText])
     return (
         <div className="storageSettings">
             <div className="settingsItem">
@@ -317,20 +401,41 @@ const StorageSettings = () => {
                     Reset
                 </span>
                 <button
-                    style={{ borderRadius: "10dvw", background: showInput ? "var(--btn-fill-accent-active)" : "var(--empty)", color: showInput ? "var(--bg)" : "var(--text) !important", width: "min(400px,100%)" }}
+                    style={{ background: showInput ? "var(--btn-fill-accent-active)" : "var(--btn-fill-accent-inactive)", color: showInput ? "var(--bg)" : "var(--text)", width: "min(400px,100%)" }}
                     className="single-btn"
                     onClick={() => {
                         setShowInput(p => !p);
                     }}>
                     {showInput ? "Cancel" : "Reset App"}
                 </button>
-                <div style={{ marginTop: '0.25rem' }}>
-                    <span className="tip">Deletes all events and settings data after confirmation.</span>
-                </div>
-
                 {
-                    !showInput ? "" :
+                    !showInput ? <div style={{ marginTop: '0.25rem' }}>
+                        <span className="tip">Deletes all events and settings data after confirmation.</span>
+                    </div> :
                         <>
+                            <InputBox
+                                inputProps={{
+                                    placeholder: "delete _",
+                                    onKeyDown: (e) => {
+                                        if (e.code === 'Enter') {
+                                            if (inputText.toLowerCase() === 'delete all') {
+                                                resetApp();
+                                            } else if (inputText.toLowerCase() === 'delete settings') {
+                                                resetSettings();
+                                            } else if (inputText.toLowerCase() === 'delete events') {
+                                                resetData();
+                                            }
+                                            return;
+                                        } return;
+                                    },
+                                    type: "text",
+                                    name: "confirm-deletion",
+                                    id: "confirm-deletion"
+                                }}
+                                state={{ set: setInputText, get: inputText }}
+                            />
+
+
                             <div style={{ marginTop: '0.5rem', opacity: 0.75, display: "flex", flexDirection: "column", gap: "4px" }}>
                                 <span style={{ fontSize: "0.75rem" }}>• Type `delete all` to reset the entire app.</span>
                                 <span style={{ fontSize: "0.75rem" }}>• Type `delete settings` to reset your preferences.</span>
@@ -339,23 +444,6 @@ const StorageSettings = () => {
                             </div>
 
 
-                            <input onChange={(e) => {
-                                setConfirmInput(e.target.value)
-                            }}
-                                onKeyDown={(e) => {
-                                    if (e.code === 'Enter') {
-                                        if (confirmInput.toLowerCase() === 'delete all') {
-                                            resetApp();
-                                        } else if (confirmInput.toLowerCase() === 'delete settings') {
-                                            resetSettings();
-                                        } else if (confirmInput.toLowerCase() === 'delete events') {
-                                            resetData();
-                                        }
-                                        return;
-                                    } return;
-                                }}
-                                className="input-box-text"
-                                type="text" name="confirm-deletion" id="confirm-deletion" />
                         </>
                 }
 

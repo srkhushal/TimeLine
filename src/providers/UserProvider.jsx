@@ -1,11 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { filterColor } from "../utils/func/func";
+import { themes } from "../utils/theme/theme";
 
 export const defaultUser = {
     settings: {
         hideCompleted: true,
         theme: {
-            mode: "system",
+            mode: "system",       // system | light | dark
+            ui: "monochrome",     // monochrome | dynamic
+            accent: "purple" // ui-dynamic ? { purple | blue | green } : ui-monochrome ? { gray }
         },
         filter: {
             sepia: `0%`,
@@ -19,7 +22,8 @@ export const defaultUser = {
     data: {
         events: []
     }
-}
+};
+
 const UserContext = createContext({ user: defaultUser, setUser: () => { } });
 
 export const UserProvider = ({ children }) => {
@@ -29,11 +33,9 @@ export const UserProvider = ({ children }) => {
             return stored ? JSON.parse(stored) : defaultUser;
         } catch (err) {
             console.error("Failed to parse localStorage user data:", err);
-            return {};
+            return defaultUser;
         }
     });
-
-
 
     useEffect(() => {
         try {
@@ -46,15 +48,14 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const filter = user?.settings?.filter;
         if (!filter) return;
+
         const filterStr = Object.entries(filter)
             .map(([key, value]) => `${key}(${value})`)
             .join(" ");
-
         document.documentElement.style.filter = filterStr;
 
-        const themeElements = document.querySelectorAll(".theme-content");
-        themeElements.forEach(el => {
-            const originalColor = getComputedStyle(el).color; // normally #000 or #fff
+        document.querySelectorAll(".theme-content").forEach(el => {
+            const originalColor = getComputedStyle(el).color;
             const hex = originalColor === "rgb(255, 255, 255)" ? "#fff" : "#000";
             el.style.color = filterColor(hex, filter);
         });
@@ -63,34 +64,79 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const font = user?.settings?.font;
         if (!font) return;
+
         let varFont = null;
-        if (font?.fontFamily === 'Google Sans Code') varFont = "Google Sans Code, monospace";
-        else if (font?.fontFamily === 'Open Sans') varFont = "Open Sans, system-ui";
-        else if (font?.fontFamily === 'Google Sans Flex') varFont = "Google Sans Flex, system-ui";
+        if (font.fontFamily === 'Google Sans Code') varFont = "Google Sans Code, monospace";
+        else if (font.fontFamily === 'Open Sans') varFont = "Open Sans, system-ui";
+        else if (font.fontFamily === 'Google Sans Flex') varFont = "Google Sans Flex, system-ui";
 
         document.documentElement.style.setProperty('--font', varFont);
-        document.documentElement.style.fontSize = (font?.fontSize);
-
+        document.documentElement.style.fontSize = font.fontSize;
     }, [user?.settings?.font]);
 
+
     useEffect(() => {
-        const theme = user?.settings?.theme;
-        if (!theme) return;
-        let varTheme = null;
-        if (theme?.mode === 'light') varTheme = "only light";
-        else if (theme?.mode === 'dark') varTheme = "only dark";
-        else if (theme?.mode === 'system') varTheme = "light dark";
+        document.documentElement.setAttribute(
+            "data-ui",
+            user.settings.theme.ui
+        );
+    }, [user.settings.theme.ui]);
 
-        document.documentElement.style.colorScheme = varTheme;
+    useEffect(() => {
+        const themeMode = user.settings.theme.mode;
 
-    }, [user?.settings?.theme]);
+        document.documentElement.setAttribute("data-theme", themeMode);
+
+        let resolved = themeMode;
+
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const updateResolved = () => {
+            resolved = themeMode === "system"
+                ? media.matches ? "dark" : "light"
+                : themeMode;
+
+            document.documentElement.setAttribute(
+                "data-resolved-theme",
+                resolved
+            );
+        };
+
+        updateResolved();
+
+        if (themeMode === "system") {
+            media.addEventListener("change", updateResolved);
+            return () => media.removeEventListener("change", updateResolved);
+        }
+    }, [user.settings.theme.mode]);
+
+    useEffect(() => {
+        const palette = user.settings.theme.accent;
+
+        const applyColors = () => {
+            const resolvedTheme = document.documentElement.getAttribute("data-resolved-theme") || "light";
+            const colors = themes[resolvedTheme]?.[palette];
+
+            if (!colors) return;
+
+            document.documentElement.setAttribute("data-accent", palette);
+
+            Object.entries(colors).forEach(([key, value]) => {
+                document.documentElement.style.setProperty(key, value);
+            });
+        };
+        applyColors();
+        if (user.settings.theme.mode === "system") {
+            const media = window.matchMedia("(prefers-color-scheme: dark)");
+            media.addEventListener("change", applyColors);
+            return () => media.removeEventListener("change", applyColors);
+        }
+    }, [user.settings.theme]);
 
 
-
-    const value = { user, setUser };
 
     return (
-        <UserContext.Provider value={value}>
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     );
@@ -98,8 +144,6 @@ export const UserProvider = ({ children }) => {
 
 export const useUser = () => {
     const ctx = useContext(UserContext);
-    if (ctx === null) {
-        throw new Error("useUser must be used within a UserProvider");
-    }
+    if (!ctx) throw new Error("useUser must be used within a UserProvider");
     return ctx;
 };

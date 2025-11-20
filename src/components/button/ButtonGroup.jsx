@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// items : [ { children, isActive, props, styles } ]
 export default function ButtonGroup({ items = [] }) {
 
     const [activeIndex, setActiveIndex] = useState(() => {
