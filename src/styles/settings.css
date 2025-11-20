@@ -20,6 +20,22 @@
     width: 100%;
 }
 
+.page-header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: var(--header-zindex);
+    padding: calc(0.125 * var(--offset)) calc(1* var(--offset));
+    margin-left: calc(-1 * var(--offset));
+    width: calc(100% + (2 * var(--offset)));
+    transition: all 350ms;
+    will-change: background, backdrop-filter;
+}
+
 .appearanceSettings,
 .shareSettings {
     opacity: 1;
@@ -85,20 +101,4 @@
 .shareSettings {
     display: flex;
     width: min(100%, 400px);
-
-    button {
-        flex: 1;
-        background: var(--subtle);
-        border: 1px solid rgb(128 128 128 /0.25);
-        color: var(--text);
-        cursor: pointer;
-        font-size: 0.75rem;
-        transition: all 75ms;
-        padding: 0.75rem 0.75rem;
-        border-radius: 14px;
-
-        &:hover {
-            opacity: 0.75;
-        }
-    }
 }

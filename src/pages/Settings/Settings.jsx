@@ -4,15 +4,35 @@ import { InputBox, Slider, SplitButton } from "../../components";
 import ButtonGroup from "../../components/button/ButtonGroup";
 import { AccentIcon, AlertIcon, BackIcon, BrightnessIcon, DarkIcon, FontIcon, FontSizeIcon, HistoryIcon, LightIcon, SepiaIcon, SystemThemeIcon, ThemeIcon } from "../../components/icons/Icons";
 import { defaultUser, useUser } from "../../providers/UserProvider";
-import { exportData, importData } from "../../utils";
+import { exportData, importData, useScrollProgress } from "../../utils";
 import { capitalizeWord } from "../../utils/strings/strings";
 
 export function Settings() {
     const [showAddEvent, setShowAddEvent] = useState(false);
     const nav = useNavigate();
+    const [stickyHeader, setStickyHeader] = useState(false);
+    useEffect(() => {
+        const handleScroll = (e) => {
+            setStickyHeader(Boolean(window.scrollY))
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <div className="settingsPage">
-            <div style={{ display: "flex", justifyContent: 'start', alignItems: 'center', gap: "1rem" }}>
+            <div
+                className={`page-header${stickyHeader ? " sticky" : ""}`}
+                style={{
+                    ...(stickyHeader ? {
+                        background: `linear-gradient(to bottom, var(--bg) 37%, var(--bg-for-blur))`
+                    } : {
+                        background: `linear-gradient(to bottom, var(--bg) 37%, var(--bg))`
+                    })
+                }}
+            >
                 <div onClick={() => {
                     nav("/")
                 }}>

@@ -1,8 +1,9 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDevice, useUser } from "../../providers";
 import { useNavigate } from "react-router-dom";
-import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents, Menu } from "../../components/index.jsx";
+import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents, Menu, Avatar } from "../../components/index.jsx";
 import { minimalText } from "../../utils/strings/strings";
+import { GithubIcon, SettingsIcon } from "../../components/icons/Icons.jsx";
 
 export function Home() {
     const [showAddEvent, setShowAddEvent] = useState(false);
@@ -60,7 +61,8 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
     const nav = useNavigate();
     const itemsHandlerArray = useMemo(() => {
         return [
-            { label: "Settings", onClick: () => nav("/settings") },
+            { label: "Settings", icon: <SettingsIcon />, onClick: () => nav("/settings") },
+            { label: "Open Source", icon: <GithubIcon />, onClick: () => nav("/settings") },
         ]
     }, [nav])
 
@@ -69,12 +71,12 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
             {
                 device?.type?.isMobile ? <div style={{ display: "flex", width: '100%', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h1 style={{ fontSize: 'max(100%, 34px)' }} onClick={() => window.location.reload()}>{greeting}</h1>
+
                     <div ref={menuRef} className="profile-menu-trigger" >
-                        <div onClick={() => {
+                        <Avatar onClick={() => {
                             setShowMenu(p => !p);
-                        }} className="profile-icon" >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" opacity={0.75} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
-                        </div>
+                        }} style={{ width: "2rem", height: "2rem" }} />
+
                         {!showMenu ? '' : <Menu itemsHandlerArray={itemsHandlerArray} />}
                     </div>
                 </div> : <h1 onClick={() => window.location.reload()}>{greeting}</h1>
@@ -117,11 +119,10 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
                 {
                     device?.type?.isMobile ? '' :
                         <div ref={menuRef} className="profile-menu-trigger" >
-                            <div onClick={() => {
+                            <Avatar onClick={() => {
                                 setShowMenu(p => !p);
-                            }} className="profile-icon" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" opacity={0.75} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
-                            </div>
+                            }} style={{ width: "2rem", height: "2rem" }} />
+
                             {!showMenu ? '' : <Menu itemsHandlerArray={itemsHandlerArray} />}
                         </div>
 

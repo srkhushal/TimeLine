@@ -39,7 +39,7 @@ export const themes = {
             "--black-main": "#000",
             "--bg": "var(--black-main)",
             "--btn-fill-accent-inactive": "#1e1e1e",
-            "--btn-fill-accent-active": "#e1e1e1",
+            "--btn-fill-accent-active": "#ffffffff",
             "--empty": "#2a2a2a",
         },
         blue: {

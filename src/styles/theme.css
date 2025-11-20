@@ -1,6 +1,7 @@
 :root {
     --offset: 2rem;
     --font: "Google Sans Code";
+    --header-zindex: 20;
 }
 
 @media (max-width:40em) {
@@ -16,14 +17,15 @@
 :root[data-resolved-theme="light"] {
     --text: #212121;
     --accent: black;
-    --subtle: white;
+    --subtle: whitesmoke;
+    --bg-for-blur: rgba(255, 255, 255, 0.75)
 }
 
 :root[data-resolved-theme="dark"] {
     --text: #fafafa;
     --accent: white;
     --subtle: rgb(14 14 14);
-
+    --bg-for-blur: rgba(0, 0, 0, 0.75)
 }
 
 :root[data-resolved-theme="light"][data-ui="dynamic"] {
@@ -338,7 +340,38 @@ input.input-box-text {
     }
 }
 
+div.user-avatar-wrapper {
+    background: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
 
+    svg {
+        color: var(--bg);
+    }
+
+    span.user-avatar-initials {
+        color: var(--bg);
+        font-size: 0.75rem;
+    }
+
+    img.user-avatar-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+div.user-avatar-wrapper:has(img.user-avatar-image) {
+    background: none;
+}
 
 
 

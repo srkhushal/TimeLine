@@ -6,3 +6,4 @@ export { Menu } from "./menu/Menu.jsx";
 export { Slider } from "./slider/Slider.jsx";
 export { SplitButton } from "./button/SplitButton.jsx";
 export { InputBox } from "./form/Input.jsx";
+export { Avatar } from "./avatar/Avatar.jsx";
