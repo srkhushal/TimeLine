@@ -1,5 +1,3 @@
-
-
 # 🗓️ **TimeLine — A Lightweight Event Tracker**
 
 A lightweight **React app** for creating, organizing, and tracking personal events.
@@ -83,55 +81,6 @@ Then open:
 
 ```
 http://localhost:5173
-```
-
----
-
-## 🧱 Project Structure
-
-```
-.
-├── README.md
-├── bun.lock
-├── eslint.config.js
-├── index.html
-├── package.json
-├── vite.config.js
-│
-├── public/
-│   └── favicon/      # icons & manifest files
-│
-└── src/
-    ├── assets/
-    │   ├── fonts/    # Google Sans & Inter
-    │   └── images/   # zero-state illustrations
-    │
-    ├── components/
-    │   └── Switch.jsx
-    │
-    ├── pages/
-    │   ├── Home/
-    │   │   └── Home.jsx
-    │   ├── Layout.jsx
-    │   └── index.jsx
-    │
-    ├── providers/
-    │   ├── DeviceProvider.jsx
-    │   ├── RouterProvider.jsx
-    │   ├── UserProvider.jsx
-    │   └── index.jsx
-    │
-    ├── styles/
-    │   ├── fonts.css
-    │   ├── form.css
-    │   └── home.css
-    │
-    └── utils/
-        ├── constants/
-        │   └── index.js
-        └── hooks/
-            └── ls/
-                └── useLocalStorageUsage.js
 ```
 
 ---
