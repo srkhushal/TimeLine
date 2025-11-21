@@ -1,9 +1,10 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { XIcon } from "../icons/Icons";
 
 export function InputBox({ startIcon, state, inputProps, wrapperProps }) {
     const type = inputProps?.type ?? "text";
     const inputRef = useRef(null);
+    const [isFocused, setIsFocused] = useState(false);
 
     const handleActivateInput = () => {
         inputRef.current?.focus();
@@ -26,6 +27,17 @@ export function InputBox({ startIcon, state, inputProps, wrapperProps }) {
             {startIcon && (
                 <div className="input-icon">{startIcon}</div>
             )}
+            <label
+                className="input-box-label"
+                style={{
+                    opacity: (isFocused || state?.get) ? 1 : 0,
+                    transform: (isFocused || state?.get) ? "translate(0,10)" : "translate(0,-10)"
+                }}
+                htmlFor={inputProps?.name ?? "unnamed-input"}
+            >
+                {inputProps?.placeholder}
+                {inputProps?.['aria-required'] === "true" ? <span className="label-sup">*</span> : ''}
+            </label>
             <input
                 value={state?.get || ''}
                 autoFocus
@@ -35,12 +47,14 @@ export function InputBox({ startIcon, state, inputProps, wrapperProps }) {
                 name={inputProps?.name ?? "unnamed-input"}
                 onChange={handleChange}
                 {...inputProps}
+                placeholder={inputProps?.placeholder ? inputProps?.['aria-required'] === "true" ? `${inputProps?.placeholder}` : inputProps?.placeholder : ''}
                 style={{
                     ...inputProps?.styles,
                     borderRadius: inputBorderRadius,
                     borderLeft: startIcon ? "none" : "1px solid var(--btn-fill-accent-inactive)",
-                    // borderRight: showDeleteIcon ? "none" : "1px solid var(--btn-fill-accent-inactive)"
                 }}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
             />
             {!showDeleteIcon ? '' : <div onClick={() => state?.set("")} className="input-reset-icon">
                 <XIcon />

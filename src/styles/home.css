@@ -105,7 +105,7 @@ input[name="event-search"] {
     /* margin-bottom: 16px; */
     padding: 16px;
     border: 1px solid;
-    border-color: light-dark(#ddd, #33333361);
+    border-color: var(--btn-fill-accent-inactive-alpha);
     /* border-color: light-dark(rgba(30, 143, 255, 0.85), rgba(30, 143, 255, 0.31)); */
     cursor: pointer;
     border-radius: 14px;
@@ -113,7 +113,7 @@ input[name="event-search"] {
     justify-content: space-between;
     position: relative;
     gap: 1rem;
-    background: light-dark(rgb(252, 252, 255), rgb(4, 4, 14));
+    background: var(--btn-fill-accent-inactive-alpha);
 
 }
 
@@ -122,7 +122,7 @@ input[name="event-search"] {
     border-width: 1px;
     /* border-style: dashed; */
     /* box-shadow: 1px 1px 5px rgba(30, 151, 0, 0.185); */
-    background: light-dark(rgb(252, 255, 252), rgb(4, 14, 4));
+    /* background: light-dark(rgb(252, 255, 252), rgb(4, 14, 4)); */
 }
 
 .event-label {
@@ -142,32 +142,32 @@ input[name="event-search"] {
 
     span {
         font-size: 0.75rem;
-        background: light-dark(rgba(30, 143, 255, 0.185), rgba(30, 143, 255, 0.231));
         padding: 4px 6px;
         font-weight: bold;
         font-family: monospace;
-        color: dodgerblue;
+        color: var(--btn-fill-accent-active);
         border-radius: 10dvw;
     }
 }
 
 span.upcoming {
     font-size: 0.62rem;
-    background: light-dark(rgba(30, 143, 255, 0.185), rgba(30, 143, 255, 0.231));
+    background: var(--btn-fill-accent-inactive-alpha);
     padding: 4px 12px;
     font-weight: bold;
     font-family: monospace;
-    color: dodgerblue;
+    color: var(--btn-fill-accent-active);
     border-radius: 10dvw;
 }
 
 span.completed {
     font-size: 0.62rem;
-    background: light-dark(rgba(75, 255, 30, 0.285), rgba(41, 255, 30, 0.231));
+    background: var(--btn-fill-accent-inactive-alpha);
     padding: 4px 12px;
     font-weight: bold;
     font-family: monospace;
-    color: light-dark(rgb(0, 129, 2), limegreen);
+    color: var(--btn-fill-accent-active);
+
     border-radius: 10dvw;
 }
 

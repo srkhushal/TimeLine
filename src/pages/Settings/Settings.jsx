@@ -434,8 +434,11 @@ const StorageSettings = () => {
                     </div> :
                         <>
                             <InputBox
+                                wrapperProps={{
+                                    style: { marginTop: '0.5rem' }
+                                }}
                                 inputProps={{
-                                    placeholder: "delete _",
+                                    placeholder: "Confirmation",
                                     onKeyDown: (e) => {
                                         if (e.code === 'Enter') {
                                             if (inputText.toLowerCase() === 'delete all') {

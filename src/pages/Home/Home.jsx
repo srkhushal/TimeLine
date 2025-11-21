@@ -1,9 +1,9 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useDevice, useUser } from "../../providers";
 import { useNavigate } from "react-router-dom";
-import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents, Menu, Avatar, Fab } from "../../components/index.jsx";
+import { AddIcon, GithubIcon, SettingsIcon } from "../../components/icons/Icons.jsx";
+import { Avatar, EventModal, Fab, Menu, SortIcon, Switch, ViewIcon, ZeroEvents } from "../../components/index.jsx";
+import { useDevice, useUser } from "../../providers";
 import { minimalText } from "../../utils/strings/strings";
-import { AddIcon, GithubIcon, SettingsIcon, XIcon } from "../../components/icons/Icons.jsx";
 
 export function Home() {
     const [showAddEvent, setShowAddEvent] = useState(false);
@@ -14,7 +14,8 @@ export function Home() {
             <EventList showAddEvent={showAddEvent} setShowAddEvent={setShowAddEvent} />
         </>
     )
-}
+};
+
 
 
 
@@ -201,7 +202,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             <span aria-required className="input-label">Event Name</span>
 
                             <div className="input-wrapper">
-                                <input onBlur={handleLabelInput} required className="event-input" name="event-name" type="text" />
+                                <input onChange={handleLabelInput} required className="event-input" name="event-name" type="text" />
                             </div>
                         </label>
 
@@ -210,7 +211,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             <span aria-required className="input-label">Date & Time</span>
 
                             <div className="input-wrapper">
-                                <input onBlur={handleDTInput} required className="event-input" name="event-dnt" type="datetime-local" />
+                                <input onChange={handleDTInput} required className="event-input" name="event-dnt" type="datetime-local" />
                             </div>
 
                         </label>
@@ -219,7 +220,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             <span className="input-label" >Quick Note</span>
 
                             <div className="input-wrapper">
-                                <textarea onBlur={handleNoteInput} className="event-input" name="event-note" />
+                                <textarea onChange={handleNoteInput} className="event-input" name="event-note" />
                             </div>
                         </label>
 
@@ -235,8 +236,8 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
 
 
 
-                        <div className="input-wrapper add-event-wrapper">
-                            <input type="submit" className="event-input add-event" name="add-event" value="Add Event" />
+                        <div style={{ borderRadius: '10dvw', alignItems: "stretch", background: "var(--btn-fill-accent-inactive)" }} className="input-wrapper add-event-wrapper">
+                            <input style={{ borderRadius: '10dvw', height: "100%" }} type="submit" className="event-input add-event" name="add-event" value="Add Event" />
                         </div>
 
                     </form>

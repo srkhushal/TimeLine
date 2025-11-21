@@ -209,8 +209,8 @@ button.fab {
     cursor: pointer;
     z-index: var(--fab-zindex);
     border-radius: 0.65rem;
-    color: var(--text);
-    background: var(--btn-fill-accent-inactive);
+    color: var(--bg);
+    background: var(--text);
     transition: all 350ms;
     will-change: transform;
 }
@@ -294,7 +294,7 @@ div.slider-track-filled {
 }
 
 div.input-box-wrapper {
-    background: var(--btn-fill-accent-inactive);
+    background: none;
     width: min(400px, 100%);
     height: 2.5rem;
     border-radius: 0.35rem;
@@ -313,7 +313,6 @@ div.input-reset-icon {
     padding: 0.25rem 0.75rem;
     padding-right: 0;
     position: relative;
-    z-index: 2;
     border: 1px solid var(--btn-fill-accent-inactive);
     border-right: none;
 }
@@ -324,10 +323,10 @@ div.input-reset-icon {
     position: absolute;
     right: 0.5rem;
     opacity: 0.75;
-    min-width: 1.125rem;
-    min-height: 1.125rem;
-    max-height: 1.125rem;
-    max-width: 1.125rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    max-height: 1rem;
+    max-width: 1rem;
     background: var(--btn-fill-accent-active);
     display: flex;
     justify-content: center;
@@ -335,7 +334,7 @@ div.input-reset-icon {
     cursor: pointer;
 
     svg {
-        color: var(--btn-fill-accent-inactive);
+        color: var(--bg);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -344,6 +343,8 @@ div.input-reset-icon {
         height: 0.65rem;
     }
 }
+
+
 
 input.input-box-text {
     min-height: 100%;
@@ -358,15 +359,41 @@ input.input-box-text {
     font-family: var(--font);
     width: min(100%, 400px);
     position: relative;
-    z-index: 2;
     border: 1px solid var(--btn-fill-accent-inactive);
     color: var(--btn-fill-accent-active);
 
     &::placeholder {
         font-size: 0.75rem;
-        padding-inline-start: 0.25rem;
         color: var(--btn-fill-accent-active);
+        opacity: 0.5;
+        transition: all 100ms;
     }
+
+    &:active,
+    &:focus {
+        &::placeholder {
+            opacity: 0;
+            transform: translateY(-10px);
+
+        }
+    }
+}
+
+label.input-box-label {
+    font-size: 0.625rem;
+    position: absolute;
+    top: -0.425rem;
+    left: 0.75rem;
+    background: var(--bg);
+    z-index: 1;
+    color: var(--btn-fill-accent-active);
+    opacity: 1;
+    transition: all 100ms;
+
+}
+
+span.label-sup {
+    color: rgb(217, 64, 64);
 }
 
 div.user-avatar-wrapper {

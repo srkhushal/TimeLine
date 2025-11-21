@@ -72,12 +72,32 @@ input {
     height: 44px !important;
     min-height: 44px !important;
     max-height: 44px !important;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 
-    input,
+    input:not([type='submit']),
     textarea {
         border-radius: 14px;
         position: relative;
         z-index: 0;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        color: var(--text);
+        text-align: start;
+    }
+}
+
+.input-wrapper:has(textarea) {
+    textarea {
+        border-radius: 14px;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        color: var(--text);
     }
 }
 
