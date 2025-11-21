@@ -1,23 +1,9 @@
-/* @import url(./styles/fonts.css); */
 @import url(./styles/form.css);
 @import url(./styles/home.css);
 @import url(./styles/settings.css);
+@import url(./styles/theme.css);
 
-:root {
-  color-scheme: light dark;
-  --offset: 2rem;
-  --bg: light-dark(white, #000);
-  --text: light-dark(#212121, #fafafa);
-  --accent: light-dark(black, white);
-  --subtle: light-dark(white, rgb(14 14 14));
-  --font: "Google Sans Code";
-}
 
-@media (max-width:40em) {
-  :root {
-    --offset: 1.125rem;
-  }
-}
 
 *,
 *::after,
@@ -26,6 +12,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 
 html,
 body {
@@ -42,7 +29,8 @@ body {
 
 #root {
   padding: var(--offset);
-  background: var(--bg);
+  padding-top: 0;
+  /* background: var(--bg); */
   color: var(--text);
   line-height: 1.6;
   max-width: calc(100dvw);

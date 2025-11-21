@@ -1,7 +1,8 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useDevice, useUser } from "../../providers";
 import { useNavigate } from "react-router-dom";
-import { Switch, EventModal, SortIcon, ViewIcon, ZeroEvents, Menu } from "../../components/index.jsx";
+import { AddIcon, GithubIcon, SettingsIcon } from "../../components/icons/Icons.jsx";
+import { Avatar, EventModal, Fab, Menu, SortIcon, Switch, ViewIcon, ZeroEvents } from "../../components/index.jsx";
+import { useDevice, useUser } from "../../providers";
 import { minimalText } from "../../utils/strings/strings";
 
 export function Home() {
@@ -13,7 +14,8 @@ export function Home() {
             <EventList showAddEvent={showAddEvent} setShowAddEvent={setShowAddEvent} />
         </>
     )
-}
+};
+
 
 
 
@@ -60,7 +62,12 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
     const nav = useNavigate();
     const itemsHandlerArray = useMemo(() => {
         return [
-            { label: "Settings", onClick: () => nav("/settings") },
+            { label: "Settings", icon: <SettingsIcon />, onClick: () => nav("/settings") },
+            {
+                label: "Open Source", icon: <GithubIcon />, onClick: () => {
+                    window.open("https://github.com/srkhushal/TimeLine", "_blank", "noopener noreferrer")
+                }
+            },
         ]
     }, [nav])
 
@@ -69,12 +76,12 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
             {
                 device?.type?.isMobile ? <div style={{ display: "flex", width: '100%', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h1 style={{ fontSize: 'max(100%, 34px)' }} onClick={() => window.location.reload()}>{greeting}</h1>
+
                     <div ref={menuRef} className="profile-menu-trigger" >
-                        <div onClick={() => {
+                        <Avatar onClick={() => {
                             setShowMenu(p => !p);
-                        }} className="profile-icon" >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" opacity={0.75} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
-                        </div>
+                        }} style={{ width: "2rem", height: "2rem" }} />
+
                         {!showMenu ? '' : <Menu itemsHandlerArray={itemsHandlerArray} />}
                     </div>
                 </div> : <h1 onClick={() => window.location.reload()}>{greeting}</h1>
@@ -117,11 +124,10 @@ const Greeting = memo(({ showAddEvent, setShowAddEvent }) => {
                 {
                     device?.type?.isMobile ? '' :
                         <div ref={menuRef} className="profile-menu-trigger" >
-                            <div onClick={() => {
+                            <Avatar onClick={() => {
                                 setShowMenu(p => !p);
-                            }} className="profile-icon" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" opacity={0.75} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
-                            </div>
+                            }} style={{ width: "2rem", height: "2rem" }} />
+
                             {!showMenu ? '' : <Menu itemsHandlerArray={itemsHandlerArray} />}
                         </div>
 
@@ -186,15 +192,8 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
     }
     return (
         <div>
-            <button style={{
-                background: !showAddEvent ? "light-dark(black,white)" : "var(--accent)"
-            }} className="cta" onClick={() => setShowAddEvent(p => !p)}>
-                {
-                    showAddEvent
-                        ? <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                        : <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
-                }
-            </button>
+            <Fab state={{ set: setShowAddEvent, get: showAddEvent }} onlyIcon icon={<AddIcon style={{ transition: "transform 150ms ease-in-out", transform: `rotate(${showAddEvent ? "45deg" : "0deg"})`, width: "1.25rem", height: "1.25rem", strokeWidth: "1.5px" }} mode="plain" />} />
+
             {
                 !showAddEvent ? '' :
                     <form onSubmit={handleSubmit} className="addNewEvent">
@@ -203,7 +202,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             <span aria-required className="input-label">Event Name</span>
 
                             <div className="input-wrapper">
-                                <input onBlur={handleLabelInput} required className="event-input" name="event-name" type="text" />
+                                <input onChange={handleLabelInput} required className="event-input" name="event-name" type="text" />
                             </div>
                         </label>
 
@@ -212,7 +211,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             <span aria-required className="input-label">Date & Time</span>
 
                             <div className="input-wrapper">
-                                <input onBlur={handleDTInput} required className="event-input" name="event-dnt" type="datetime-local" />
+                                <input onChange={handleDTInput} required className="event-input" name="event-dnt" type="datetime-local" />
                             </div>
 
                         </label>
@@ -221,7 +220,7 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
                             <span className="input-label" >Quick Note</span>
 
                             <div className="input-wrapper">
-                                <textarea onBlur={handleNoteInput} className="event-input" name="event-note" />
+                                <textarea onChange={handleNoteInput} className="event-input" name="event-note" />
                             </div>
                         </label>
 
@@ -237,8 +236,8 @@ const AddNewEvent = memo(({ showAddEvent, setShowAddEvent }) => {
 
 
 
-                        <div className="input-wrapper add-event-wrapper">
-                            <input type="submit" className="event-input add-event" name="add-event" value="Add Event" />
+                        <div style={{ borderRadius: '10dvw', alignItems: "stretch", background: "var(--btn-fill-accent-inactive)" }} className="input-wrapper add-event-wrapper">
+                            <input style={{ borderRadius: '10dvw', height: "100%" }} type="submit" className="event-input add-event" name="add-event" value="Add Event" />
                         </div>
 
                     </form>
